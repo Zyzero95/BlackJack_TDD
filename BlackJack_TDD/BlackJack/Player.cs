@@ -1,6 +1,7 @@
 ﻿// Classen är skriven av Jesper P
 namespace BlackJack_TDD
 {
+    using BlackJack_TDD.BlackJack;
     using System;
     using System.Collections.Generic;
 

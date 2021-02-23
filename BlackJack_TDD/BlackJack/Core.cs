@@ -19,6 +19,7 @@ namespace BlackJack_TDD.BlackJack
         public static void game()
         {
             var gamestate = new Gamestage();
+            gamestate = Gamestage.starting;
             var dealer = new Dealer();
             Players.Add(new Player());
             
