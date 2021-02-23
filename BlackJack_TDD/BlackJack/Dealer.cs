@@ -4,19 +4,23 @@ using System.Text;
 
 namespace BlackJack_TDD.BlackJack
 {
-    class Dealer
+    public class Dealer
     {
         public List<string> cards { get; set; }
 
-        public void DealCards()
+        public void startOfRound()
         {
+            foreach (var player in Core.Players)
+            {
+                player.Cards.Clear();
+            }
             for (int i = 0; i < 1; i++)
             {
                 foreach (var player in Core.Players)
                 {
-                    player.Cards.Add(CardsHandeler.draw());
+                    player.Cards.Add(CardsHandler.draw());
                 }
-                cards.Add(CardsHandeler.draw());
+                cards.Add(CardsHandler.draw());
             }
         }
     }

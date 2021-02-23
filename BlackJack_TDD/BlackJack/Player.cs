@@ -45,14 +45,18 @@ namespace BlackJack_TDD
         /// clears cards and set bet for next round
         /// </summary>
         /// <param name="bet">about player is betting</param>
-        public void Clear(double bet)
+        public Return setBet(double bet)
         {
-            //clear Cards
-            Cards.Clear();
-            CardsSplit.Clear();
-            //bet
-            Bet = bet;
-            return;
+            if(bet < Saldo)
+            {
+                if(bet > Core.MinBet && bet < Core.MaxBet)
+                {
+                    Bet = bet;
+                    return new Return { Succses = true };
+                }
+                return new Return { Succses = false, Exception = "bet isnt inside betRange" };
+            }
+            return new Return { Succses = false, Exception = "you dont didnt bring that much to the casino" };
         }
 
         /// <summary>

@@ -117,7 +117,7 @@ namespace BlackJack_TDD
             CardDeck.Add(Diamonds);
         }
 
-        internal static string draw()
+        public static string draw()
         {
             throw new NotImplementedException();
         }
