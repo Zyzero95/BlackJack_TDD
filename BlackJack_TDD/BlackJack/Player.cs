@@ -7,7 +7,7 @@ namespace BlackJack_TDD
     /// <summary>
     /// en spelare
     /// </summary>
-    internal class Player
+    public class Player
     {
         /// <summary>
         /// Palyer Saldo
@@ -123,7 +123,7 @@ namespace BlackJack_TDD
     /// <summary>
     /// Retrun obj
     /// </summary>
-    internal class Return
+    public class Return
     {
         public bool Succses { get; set; }
         public string Exception { get; set; } = null;

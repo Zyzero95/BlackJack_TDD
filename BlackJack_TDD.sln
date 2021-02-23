@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack_TDD", "BlackJack_TDD\BlackJack_TDD.csproj", "{B5613710-F423-4576-84A5-6FA24CE4726C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack_TDD", "BlackJack_TDD\BlackJack_TDD.csproj", "{B5613710-F423-4576-84A5-6FA24CE4726C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack_TDDTests", "BlackJack_TDDTests\BlackJack_TDDTests.csproj", "{F267E272-713A-4C2F-803B-C61D888F8DD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B5613710-F423-4576-84A5-6FA24CE4726C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5613710-F423-4576-84A5-6FA24CE4726C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5613710-F423-4576-84A5-6FA24CE4726C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F267E272-713A-4C2F-803B-C61D888F8DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F267E272-713A-4C2F-803B-C61D888F8DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F267E272-713A-4C2F-803B-C61D888F8DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F267E272-713A-4C2F-803B-C61D888F8DD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
