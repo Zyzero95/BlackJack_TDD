@@ -13,6 +13,7 @@ namespace BlackJack_TDD
         public static List<string> Spades = new List<string>();
         public static List<string> Hearts = new List<string>();
         public static List<string> Diamonds = new List<string>();
+        public static List<string> TempList = new List<string>();
 
         // Creates a set of cards for every suit in the deck.
         public static void CreateCards()
@@ -118,19 +119,28 @@ namespace BlackJack_TDD
         }
 
         //Enables the dealer to draw a card for either a player or the table.
-        public static string DrawCard(string cardName)
+        public static string DrawCard()
         {
+            string cardName;
             Random r = new Random();
             Random l = new Random();
             int suit = r.Next(0, (CardDeck.Count -1));
             int card = l.Next(0, Clubs.Count);
             cardName = CardDeck[suit][card];
+            CardDeck.RemoveAt(suit);
             return cardName;
         }
 
         public static void ShuffleDeck()
         {
 
+            for(int i = 0; i < CardDeck.Count; i++)
+            {
+                for (int j = 0; j < Clubs.Count; j++)
+                {
+
+                }
+            }
         }
     }
 }

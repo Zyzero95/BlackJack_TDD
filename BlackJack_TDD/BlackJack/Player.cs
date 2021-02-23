@@ -1,6 +1,7 @@
 ﻿// Classen är skriven av Jesper P
 namespace BlackJack_TDD
 {
+    using BlackJack_TDD.BlackJack;
     using System;
     using System.Collections.Generic;
 
@@ -76,7 +77,7 @@ namespace BlackJack_TDD
                     return Double();
 
                 case "hit":
-                    Cards.Add(CardsHandler.DrawCard(""));
+                    Cards.Add(CardsHandler.DrawCard());
                     return new Return { Succses = true };
 
                 case "stand":
@@ -98,7 +99,7 @@ namespace BlackJack_TDD
                 if (Bet < Saldo)
                 {
                     Bet += Bet;
-                    Cards.Add(CardsHandler.DrawCard(""));
+                    Cards.Add(CardsHandler.DrawCard());
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "Too little on Saldo" };
@@ -117,7 +118,7 @@ namespace BlackJack_TDD
                 if (Cards[0] == Cards[1])
                 {
                     CardsSplit.Add(Cards[1]);
-                    CardsSplit.Add(CardsHandler.DrawCard(""));
+                    CardsSplit.Add(CardsHandler.DrawCard());
                     Cards.RemoveAt(1);
                     Cards.Add(Cards[1]);
                     return new Return { Succses = true };
