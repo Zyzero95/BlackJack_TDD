@@ -150,13 +150,21 @@ namespace BlackJack_TDD
 
         public static void ShuffleDeck()
         {
-
+            Random r = new Random();
+            int randomNumber = 0;
             for(int i = 0; i < CardDeck.Count; i++)
             {
-                for (int j = 0; j < Clubs.Count; j++)
+                for (int j = CardDeck[i].Count; j > 0; j--)
                 {
-
+                    randomNumber = r.Next(0, j);
+                    TempList.Add(CardDeck[i][randomNumber]);
+                    CardDeck[i].RemoveAt(randomNumber);
                 }
+                for (int k = 0; k < TempList.Count; k++)
+                {
+                    CardDeck[i].Add(TempList[k]);
+                }
+                TempList.Clear();
             }
         }
     }
