@@ -17,6 +17,11 @@ namespace BlackJack_TDD
         /// players Cards
         /// </summary>
         public List<string> Cards { get; set; }
+
+        /// <summary>
+        /// value of cards
+        /// </summary>
+        public List<int> CardValue { get; set; }
         /// <summary>
         /// the second set of cards if a player did split
         /// </summary>

@@ -4,7 +4,9 @@ using System.Text;
 
 namespace BlackJack_TDD
 {
-    class Core
+    public static class Core
     {
+        public static List<Player> Players { get; set; }
+        
     }
 }
