@@ -119,16 +119,33 @@ namespace BlackJack_TDD
         }
 
         //Enables the dealer to draw a card for either a player or the table.
-        public static string DrawCard()
+        public static (string, string) DrawCard()
         {
             string cardName;
+            string suitName;
             Random r = new Random();
             Random l = new Random();
             int suit = r.Next(0, (CardDeck.Count -1));
             int card = l.Next(0, Clubs.Count);
             cardName = CardDeck[suit][card];
-            CardDeck.RemoveAt(suit);
-            return cardName;
+            if(suit == 0)
+            {
+                suitName = "Clubs";
+            }
+            else if(suit == 1)
+            {
+                suitName = "Spades";
+            }
+            else if(suit == 2)
+            {
+                suitName = "Hearts";
+            }
+            else
+            {
+                suitName = "Diamonds";
+            }
+            CardDeck[suit].RemoveAt(card);
+            return (cardName, suitName);
         }
 
         public static void ShuffleDeck()

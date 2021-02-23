@@ -6,7 +6,7 @@ namespace BlackJack_TDD.BlackJack
 {
     public class Dealer
     {
-        public List<string> cards { get; set; }
+        public List<(string, string)> cards { get; set; }
 
         public void startOfRound()
         {
@@ -18,9 +18,9 @@ namespace BlackJack_TDD.BlackJack
             {
                 foreach (var player in Core.Players)
                 {
-                    player.Cards.Add(CardsHandler.DrawCard(""));
+                    player.Cards.Add(CardsHandler.DrawCard());
                 }
-                cards.Add(CardsHandler.DrawCard(""));
+                cards.Add(CardsHandler.DrawCard());
             }
         }
     }

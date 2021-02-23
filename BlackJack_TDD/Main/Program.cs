@@ -7,7 +7,7 @@ namespace BlackJack_TDD
         static void Main()
         {
             CardsHandler.CreateDeck();
-            CardsHandler.DrawCard();
+            Console.WriteLine(CardsHandler.DrawCard());
         }
     }
 }
