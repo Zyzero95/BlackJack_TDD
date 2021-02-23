@@ -117,9 +117,20 @@ namespace BlackJack_TDD
             CardDeck.Add(Diamonds);
         }
 
-        public static string draw()
+        //Enables the dealer to draw a card for either a player or the table.
+        public static string DrawCard(string cardName)
         {
-            throw new NotImplementedException();
+            Random r = new Random();
+            Random l = new Random();
+            int suit = r.Next(0, (CardDeck.Count -1));
+            int card = l.Next(0, Clubs.Count);
+            cardName = CardDeck[suit][card];
+            return cardName;
+        }
+
+        public static void ShuffleDeck()
+        {
+
         }
     }
 }
