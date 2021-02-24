@@ -18,9 +18,9 @@ namespace BlackJack_TDD.BlackJack
             {
                 foreach (var player in Core.Players)
                 {
-                    player.Cards.Add(CardsHandler.DrawCard());
+                    player.Cards.Add(CardsHandler.DrawCard(""));
                 }
-                cards.Add(CardsHandler.draw());
+                cards.Add(CardsHandler.DrawCard(""));
             }
         }
     }
