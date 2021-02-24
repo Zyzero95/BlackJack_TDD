@@ -8,7 +8,7 @@ namespace BlackJack_TDD.BlackJack
     {
         public List<(string, string)> cards { get; set; }
 
-        public void startOfRound()
+        public void StartOfRound()
         {
             foreach (var player in Core.Players)
             {

@@ -53,6 +53,7 @@ namespace BlackJack_TDD
                 if(bet > Core.MinBet && bet < Core.MaxBet)
                 {
                     Bet = bet;
+                    Saldo -= bet;
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "bet isnt inside betRange" };
@@ -67,7 +68,7 @@ namespace BlackJack_TDD
         /// <returns>object if it was succsesfull and error message</returns>
         public Return Turn(string choice)
         {
-            switch (choice)
+            switch (choice.ToLower())
             {
                 case "split":
                     return Split();
