@@ -12,8 +12,9 @@ namespace BlackJack_TDD.Tests
         [TestMethod()]
         public void TurnTest()
         {
-            var c = CardsHandler.DrawCard("");
-            Assert.Fail();
+            CardsHandler.CreateDeck();
+            var c = CardsHandler.DrawCard();
+            Assert.Fail(c);
         }
     }
 }
