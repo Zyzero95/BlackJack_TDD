@@ -17,7 +17,7 @@ namespace BlackJack_TDD
         /// <summary>
         /// players Cards
         /// </summary>
-        public List<string> Cards { get; set; }
+        public List<(string, string)> Cards { get; set; }
 
         /// <summary>
         /// value of cards
@@ -26,7 +26,7 @@ namespace BlackJack_TDD
         /// <summary>
         /// the second set of cards if a player did split
         /// </summary>
-        public List<string> CardsSplit { get; set; }
+        public List<(string, string)> CardsSplit { get; set; }
 
         /// <summary>
         /// amout player is betting in current round

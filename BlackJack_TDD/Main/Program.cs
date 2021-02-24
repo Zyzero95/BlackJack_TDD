@@ -7,7 +7,12 @@ namespace BlackJack_TDD
         static void Main()
         {
             CardsHandler.CreateDeck();
-            CardsHandler.DrawCard();
+            Console.WriteLine(CardsHandler.DrawCard());
+            CardsHandler.ShuffleDeck();
+            for(int i = 0; i < CardsHandler.CardDeck[0].Count; i++)
+            {
+                Console.WriteLine(CardsHandler.CardDeck[0][i]);
+            }
         }
     }
 }

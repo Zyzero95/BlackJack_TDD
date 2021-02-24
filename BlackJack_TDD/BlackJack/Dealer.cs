@@ -6,7 +6,7 @@ namespace BlackJack_TDD.BlackJack
 {
     public class Dealer
     {
-        public List<string> cards { get; set; }
+        public List<(string, string)> cards { get; set; }
 
         public void startOfRound()
         {
