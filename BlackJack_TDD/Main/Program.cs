@@ -6,6 +6,7 @@ namespace BlackJack_TDD
     {
         private static void Main()
         {
+            BlackJack.Core.Game();
         }
     }
 }

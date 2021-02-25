@@ -12,66 +12,62 @@ namespace BlackJack_TDD.Tests
         [TestMethod()]
         public void Nochoice()
         {
-            CardsHandler.CreateDeck();
-            var player = new Player();
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Turn("hit");
+            var deck = new CardsHandler();
+            var player = new Player(deck);
             var result = player.Turn("ffdsfkfpiskf");
             Assert.AreEqual(false, result.Succses,null,result.Exception);
         }
         [TestMethod()]
         public void Hit()
         {
-            CardsHandler.CreateDeck();
-            var player = new Player();
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Turn("hit");
-            Assert.AreEqual(true, player.Turn("hit").Succses);
+            var deck = new CardsHandler();
+            var player = new Player(deck);
+            player.Hand.Add(deck.DrawCard());
+            player.Hand.Add(deck.DrawCard());
+            var result = player.Turn("hit");
+            Assert.AreEqual(true, result.Succses,null,result.Exception);
         }
         [TestMethod()]
         public void Stand()
         {
-            CardsHandler.CreateDeck();
-            var player = new Player();
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Turn("hit");
-            Assert.AreEqual(true, player.Turn("hit").Succses);
+            var deck = new CardsHandler();
+            var player = new Player(deck);
+            player.Hand.Add(deck.DrawCard());
+            player.Hand.Add(deck.DrawCard());
+            var result = player.Turn("stand");
+            Assert.AreEqual(true, result.Succses, null, result.Exception);
         }
         [TestMethod()]
         public void DoubleWithTooLittleOnSaldo()
         {
-            CardsHandler.CreateDeck();
-            var player = new Player(60);
+            var deck = new CardsHandler();
+            var player = new Player(deck,60);
             player.SetBet(50);
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Turn("hit");
+            player.Hand.Add(deck.DrawCard());
+            player.Hand.Add(deck.DrawCard());
             var result = player.Turn("Double");
             Assert.AreEqual(false, result.Succses,null, result.Exception);
         }
         [TestMethod()]
         public void DoubleWithTooManyCards()
         {
-            CardsHandler.CreateDeck();
-            var player = new Player();
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Turn("hit");
+            var deck = new CardsHandler();
+            var player = new Player(deck);
+            player.SetBet(50);
+            player.Hand.Add(deck.DrawCard());
+            player.Hand.Add(deck.DrawCard());
+            player.Hand.Add(deck.DrawCard());
             var result = player.Turn("Double");
             Assert.AreEqual(false, result.Succses, null, result.Exception);
         }
         [TestMethod()]
         public void Doublesuccsesfull()
         {
-            CardsHandler.CreateDeck();
-            var player = new Player();
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Hand.Add(CardsHandler.DrawCard());
-            player.Turn("hit");
+            var deck = new CardsHandler();
+            var player = new Player(deck);
+            player.SetBet(50);
+            player.Hand.Add(deck.DrawCard());
+            player.Hand.Add(deck.DrawCard());
             var result = player.Turn("Double");
             Assert.AreEqual(true, result.Succses, null, result.Exception);
         }

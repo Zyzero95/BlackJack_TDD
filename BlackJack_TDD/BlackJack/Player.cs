@@ -29,7 +29,7 @@ namespace BlackJack_TDD
         /// </summary>
         public double Bet { get; set; }
         public bool IsPlaying { get; private set; }
-        private CardsHandler cardDeck;
+        private CardsHandler CardDeck;
 
         /// <summary>
         /// player
@@ -38,7 +38,7 @@ namespace BlackJack_TDD
         public Player(CardsHandler cardDeck,double saldo = 5000)
         {
             Saldo = saldo;
-            cardDeck = this.cardDeck;
+            CardDeck = cardDeck;
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace BlackJack_TDD
                     return Double();
 
                 case "hit":
-                    Hand.Add(cardDeck.DrawCard());
+                    Hand.Add(CardDeck.DrawCard());
                     return new Return { Succses = true };
 
                 case "stand":
@@ -103,7 +103,7 @@ namespace BlackJack_TDD
                 if (Bet < Saldo)
                 {
                     Bet += Bet;
-                    Hand.Add(cardDeck.DrawCard());
+                    Hand.Add(CardDeck.DrawCard());
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "Too little on Saldo" };
@@ -122,7 +122,7 @@ namespace BlackJack_TDD
                 if (Hand[0] == Hand[1])
                 {
                     CardsSplit.Add(Hand[1]);
-                    CardsSplit.Add(cardDeck.DrawCard());
+                    CardsSplit.Add(CardDeck.DrawCard());
                     Hand.RemoveAt(1);
                     Hand.Add(Hand[1]);
                     return new Return { Succses = true };
