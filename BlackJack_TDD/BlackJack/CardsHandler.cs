@@ -39,15 +39,15 @@ namespace BlackJack_TDD
             var arrayOfCards = cards.ToArray();
             Random r = new Random();
 
-            for(int i = arrayOfCards.Length - 1; i > 0; i--)
+            for(var i = arrayOfCards.Length - 1; i > 0; i--)
             {
-                int k = r.Next(i + 1);
+                var k = r.Next(i + 1);
 
                 Card tempCard = arrayOfCards[i];
                 arrayOfCards[i] = arrayOfCards[k];
                 arrayOfCards[k] = tempCard;
             }
-            for(int j = 0; j < arrayOfCards.Length; j++)
+            for(var j = 0; j < arrayOfCards.Length; j++)
             {
                 SetOfCards.Push(arrayOfCards[j]);
             }
