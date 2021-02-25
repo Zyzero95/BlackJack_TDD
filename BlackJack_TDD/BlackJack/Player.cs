@@ -17,7 +17,7 @@ namespace BlackJack_TDD
         /// <summary>
         /// players Cards
         /// </summary>
-        public List<Card> Hand { get; set; }
+        public List<Card> Hand = new List<Card>();
 
         /// <summary>
         /// the second set of cards if a player did split
@@ -39,6 +39,7 @@ namespace BlackJack_TDD
         {
             Saldo = saldo;
             CardDeck = cardDeck;
+            Hand.Add(cardDeck.DrawCard());
         }
 
         /// <summary>
@@ -102,6 +103,7 @@ namespace BlackJack_TDD
             {
                 if (Bet < Saldo)
                 {
+                    Saldo -= Bet;
                     Bet += Bet;
                     Hand.Add(CardDeck.DrawCard());
                     return new Return { Succses = true };
@@ -109,6 +111,7 @@ namespace BlackJack_TDD
                 return new Return { Succses = false, Exception = "Too little on Saldo" };
             }
             return new Return { Succses = false, Exception = "too many cards" };
+            
         }
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace BlackJack_TDD
         }
 
         //Creates a deck of cards.
-        public void CreateDeck()
+        private void CreateDeck()
         {
             foreach (Card.CardSuit suit in (Card.CardSuit[])Enum.GetValues(typeof(Card.CardSuit)))
             {
@@ -40,7 +40,7 @@ namespace BlackJack_TDD
             return SetOfCards.Pop();
         }
 
-        public void ShuffleDeck()
+        private void ShuffleDeck()
         {
             var arrayOfCards = cards.ToArray();
             var r = new Random();
