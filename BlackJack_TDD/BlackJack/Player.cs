@@ -20,10 +20,6 @@ namespace BlackJack_TDD
         public List<Card> Hand { get; set; }
 
         /// <summary>
-        /// value of cards
-        /// </summary>
-        public List<int> CardValue { get; set; }
-        /// <summary>
         /// the second set of cards if a player did split
         /// </summary>
         public List<Card> CardsSplit { get; set; }
@@ -46,7 +42,7 @@ namespace BlackJack_TDD
         /// clears cards and set bet for next round
         /// </summary>
         /// <param name="bet">about player is betting</param>
-        public Return setBet(double bet)
+        public Return SetBet(double bet)
         {
             if(bet < Saldo)
             {
@@ -72,7 +68,6 @@ namespace BlackJack_TDD
             {
                 case "split":
                     return Split();
-
 
                 case "double":
                     return Double();
@@ -128,15 +123,5 @@ namespace BlackJack_TDD
             }
             return new Return { Succses = false, Exception = "too many cards" };
         }
-    }
-
-
-    /// <summary>
-    /// Retrun obj
-    /// </summary>
-    public class Return
-    {
-        public bool Succses { get; set; }
-        public string Exception { get; set; } = null;
     }
 }

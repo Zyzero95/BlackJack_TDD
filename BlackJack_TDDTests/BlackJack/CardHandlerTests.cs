@@ -10,18 +10,18 @@ namespace BlackJack_TDDTests.BlackJack
     public class CardHandlerTests
     {
         [TestMethod()]
-        public void darCardTestItem1()
+        public void DarCardTestItem1()
         {
             CardsHandler.CreateDeck();
             var c = CardsHandler.DrawCard();
-            Assert.Fail(c.Item1);
+            Assert.IsNotNull(c, c.Value.ToString());
         }
         [TestMethod()]
-        public void darCardTestItem2()
+        public void DarCardTestItem2()
         {
             CardsHandler.CreateDeck();
             var c = CardsHandler.DrawCard();
-            Assert.Fail(c.Item2);
+            Assert.IsNotNull(c, c.Suit.ToString());
         }
     }
 }

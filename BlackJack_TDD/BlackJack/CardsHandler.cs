@@ -18,7 +18,7 @@ namespace BlackJack_TDD
             {
                 foreach (Card.CardValue value in (Card.CardValue[])Enum.GetValues(typeof(Card.CardValue)))
                 {
-                    Card newCard = new Card()
+                    var newCard = new Card
                     {
                         Suit = suit,
                         Value = value
@@ -37,13 +37,13 @@ namespace BlackJack_TDD
         public static void ShuffleDeck()
         {
             var arrayOfCards = cards.ToArray();
-            Random r = new Random();
+            var r = new Random();
 
-            for(var i = arrayOfCards.Length - 1; i > 0; i--)
+            for (var i = arrayOfCards.Length - 1; i > 0; i--)
             {
                 var k = r.Next(i + 1);
 
-                Card tempCard = arrayOfCards[i];
+                var tempCard = arrayOfCards[i];
                 arrayOfCards[i] = arrayOfCards[k];
                 arrayOfCards[k] = tempCard;
             }

@@ -6,21 +6,21 @@ namespace BlackJack_TDD.BlackJack
 {
     public class Dealer
     {
-        public List<(string, string)> cards { get; set; }
+        public List<Card> Cards { get; set; }
 
         public void StartOfRound()
         {
             foreach (var player in Core.Players)
             {
-                player.Cards.Clear();
+                player.Hand.Clear();
             }
             for (int i = 0; i < 1; i++)
             {
                 foreach (var player in Core.Players)
                 {
-                    player.Cards.Add(CardsHandler.DrawCard());
+                    player.Hand.Add(CardsHandler.DrawCard());
                 }
-                cards.Add(CardsHandler.DrawCard());
+                Cards.Add(CardsHandler.DrawCard());
             }
         }
     }

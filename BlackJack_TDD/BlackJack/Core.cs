@@ -16,24 +16,23 @@ namespace BlackJack_TDD.BlackJack
             end
         }
 
-        public static void game()
+        public static void Game()
         {
-            var gamestate = new Gamestage();
-            gamestate = Gamestage.starting;
+            var gamestate = Gamestage.starting;
             var dealer = new Dealer();
             Players.Add(new Player());
-            
+
             while (true)
             {
                 if(gamestate == Gamestage.starting)
                 {
-                    dealer.startOfRound();
+                    dealer.StartOfRound();
                     foreach (var player in Players)
                     {
                         var tryparse = double.TryParse(Console.ReadLine(), out var bet);
                         if (tryparse)
                         {
-                            var result = player.setBet(bet);
+                            var result = player.SetBet(bet);
                             if (!result.Succses)
                             {
                                 Console.WriteLine(result.Exception);
