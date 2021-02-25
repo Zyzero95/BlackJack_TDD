@@ -17,7 +17,7 @@ namespace BlackJack_TDD
         /// <summary>
         /// players Cards
         /// </summary>
-        public List<(string, string)> Cards { get; set; }
+        public List<Card> Hand { get; set; }
 
         /// <summary>
         /// value of cards
@@ -26,7 +26,7 @@ namespace BlackJack_TDD
         /// <summary>
         /// the second set of cards if a player did split
         /// </summary>
-        public List<(string, string)> CardsSplit { get; set; }
+        public List<Card> CardsSplit { get; set; }
 
         /// <summary>
         /// amout player is betting in current round
@@ -78,7 +78,7 @@ namespace BlackJack_TDD
                     return Double();
 
                 case "hit":
-                    Cards.Add(CardsHandler.DrawCard());
+                    Hand.Add(CardsHandler.DrawCard());
                     return new Return { Succses = true };
 
                 case "stand":
@@ -95,12 +95,12 @@ namespace BlackJack_TDD
         /// <returns>object if it was succsesfull and error message</returns>
         private Return Double()
         {
-            if (Cards.Count == 2)
+            if (Hand.Count == 2)
             {
                 if (Bet < Saldo)
                 {
                     Bet += Bet;
-                    Cards.Add(CardsHandler.DrawCard());
+                    Hand.Add(CardsHandler.DrawCard());
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "Too little on Saldo" };
@@ -114,14 +114,14 @@ namespace BlackJack_TDD
         /// <returns>object if it was succsesfull and error message</returns>
         private Return Split()
         {
-            if (Cards.Count == 2)
+            if (Hand.Count == 2)
             {
-                if (Cards[0] == Cards[1])
+                if (Hand[0] == Hand[1])
                 {
-                    CardsSplit.Add(Cards[1]);
+                    CardsSplit.Add(Hand[1]);
                     CardsSplit.Add(CardsHandler.DrawCard());
-                    Cards.RemoveAt(1);
-                    Cards.Add(Cards[1]);
+                    Hand.RemoveAt(1);
+                    Hand.Add(Hand[1]);
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "card aint equal value" };
