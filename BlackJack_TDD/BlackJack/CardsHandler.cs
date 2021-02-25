@@ -8,11 +8,11 @@ namespace BlackJack_TDD
 {
     public class CardsHandler
     {
-        public static Stack<Card> SetOfCards = new Stack<Card>();
-        public static List<Card> cards = new List<Card>();
+        public Stack<Card> SetOfCards = new Stack<Card>();
+        public List<Card> cards = new List<Card>();
 
         //Creates a deck of cards.
-        public static void CreateDeck()
+        public void CreateDeck()
         {
             foreach (Card.CardSuit suit in (Card.CardSuit[])Enum.GetValues(typeof(Card.CardSuit)))
             {
@@ -29,12 +29,12 @@ namespace BlackJack_TDD
         }
 
         //Enables the dealer to draw a card for either a player or the table.
-        public static Card DrawCard()
+        public Card DrawCard()
         {
             return SetOfCards.Pop();
         }
 
-        public static void ShuffleDeck()
+        public void ShuffleDeck()
         {
             var arrayOfCards = cards.ToArray();
             var r = new Random();
