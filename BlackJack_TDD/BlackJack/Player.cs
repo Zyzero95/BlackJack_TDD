@@ -28,14 +28,17 @@ namespace BlackJack_TDD
         /// amout player is betting in current round
         /// </summary>
         public double Bet { get; set; }
+        private bool playround;
+        private CardsHandler cardDeck;
 
         /// <summary>
         /// player
         /// </summary>
         /// <param name="saldo">The amount player brings to table</param>
-        public Player(double saldo = 5000)
+        public Player(CardsHandler cardDeck,double saldo = 5000)
         {
             Saldo = saldo;
+            cardDeck = this.cardDeck;
         }
 
         /// <summary>
@@ -44,12 +47,17 @@ namespace BlackJack_TDD
         /// <param name="bet">about player is betting</param>
         public Return SetBet(double bet)
         {
-            if(bet < Saldo)
+            if (bet == 0)
+            {
+                playround = false;
+            }
+            else if(bet < Saldo)
             {
                 if(bet > Core.MinBet && bet < Core.MaxBet)
                 {
                     Bet = bet;
                     Saldo -= bet;
+                    playround = true;
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "bet isnt inside betRange" };
@@ -73,7 +81,7 @@ namespace BlackJack_TDD
                     return Double();
 
                 case "hit":
-                    Hand.Add(CardsHandler.DrawCard());
+                    Hand.Add(cardDeck.DrawCard());
                     return new Return { Succses = true };
 
                 case "stand":
@@ -95,7 +103,7 @@ namespace BlackJack_TDD
                 if (Bet < Saldo)
                 {
                     Bet += Bet;
-                    Hand.Add(CardsHandler.DrawCard());
+                    Hand.Add(cardDeck.DrawCard());
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "Too little on Saldo" };
@@ -114,7 +122,7 @@ namespace BlackJack_TDD
                 if (Hand[0] == Hand[1])
                 {
                     CardsSplit.Add(Hand[1]);
-                    CardsSplit.Add(CardsHandler.DrawCard());
+                    CardsSplit.Add(cardDeck.DrawCard());
                     Hand.RemoveAt(1);
                     Hand.Add(Hand[1]);
                     return new Return { Succses = true };

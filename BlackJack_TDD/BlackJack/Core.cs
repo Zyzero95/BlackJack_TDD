@@ -20,7 +20,8 @@ namespace BlackJack_TDD.BlackJack
         {
             var gamestate = Gamestage.starting;
             var dealer = new Dealer();
-            Players.Add(new Player());
+            var cardDeck = new CardsHandler();
+            Players.Add(new Player(cardDeck));
 
             while (true)
             {
