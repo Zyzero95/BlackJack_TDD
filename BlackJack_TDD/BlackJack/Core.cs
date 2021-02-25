@@ -41,8 +41,21 @@ namespace BlackJack_TDD.BlackJack
                         }
                         Console.WriteLine("bet wasn't an number");
                     }
+                    gamestate = Gamestage.ongoing;
+                }
+                if (gamestate == Gamestage.ongoing)
+                {
+                    foreach(var player in Players)
+                    {
+                        if (player.IsPlaying)
+                        {
+                            player.Turn(GetInput());
+                        }
+                    }
                 }
             }
         }
+
+        private static string GetInput() => Console.ReadLine();
     }
 }

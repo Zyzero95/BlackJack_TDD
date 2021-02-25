@@ -28,7 +28,7 @@ namespace BlackJack_TDD
         /// amout player is betting in current round
         /// </summary>
         public double Bet { get; set; }
-        private bool playround;
+        public bool IsPlaying { get; private set; }
         private CardsHandler cardDeck;
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace BlackJack_TDD
         {
             if (bet == 0)
             {
-                playround = false;
+                IsPlaying = false;
             }
             else if(bet < Saldo)
             {
@@ -57,7 +57,7 @@ namespace BlackJack_TDD
                 {
                     Bet = bet;
                     Saldo -= bet;
-                    playround = true;
+                    IsPlaying = true;
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "bet isnt inside betRange" };

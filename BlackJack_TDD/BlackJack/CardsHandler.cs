@@ -11,6 +11,12 @@ namespace BlackJack_TDD
         public Stack<Card> SetOfCards = new Stack<Card>();
         public List<Card> cards = new List<Card>();
 
+        public CardsHandler()
+        {
+            CreateDeck();
+            ShuffleDeck();
+        }
+
         //Creates a deck of cards.
         public void CreateDeck()
         {
