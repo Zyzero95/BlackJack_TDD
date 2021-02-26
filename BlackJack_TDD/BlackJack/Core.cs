@@ -7,7 +7,7 @@ namespace BlackJack_TDD.BlackJack
 {
     public static class Core
     {
-        public static List<Player> Players { get; set; }
+        public static List<Player> Players = new List<Player>();
         public static double MinBet { get; internal set; } = 20;
         public static double MaxBet { get; internal set; } = 500;
         public enum Gamestage

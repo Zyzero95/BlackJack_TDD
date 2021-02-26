@@ -3,6 +3,7 @@ using BlackJack_TDD;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using BlackJack_TDD.BlackJack;
 
 namespace BlackJack_TDD.Tests
 {
@@ -64,10 +65,10 @@ namespace BlackJack_TDD.Tests
         public void Doublesuccsesfull()
         {
             var deck = new CardsHandler();
+            var dealer = new Dealer();
             var player = new Player(deck);
             player.SetBet(50);
-            player.Hand.Add(deck.DrawCard());
-            player.Hand.Add(deck.DrawCard());
+            dealer.StartOfRound();
             var result = player.Turn("Double");
             Assert.AreEqual(true, result.Succses, null, result.Exception);
         }
