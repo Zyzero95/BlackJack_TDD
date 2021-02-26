@@ -15,6 +15,7 @@ namespace BlackJack_TDD.BlackJack
         }
         public enum CardValue
         {
+            YellowCard = 0,
             Ace = 1,
             Two = 2,
             Three = 3,
@@ -43,6 +44,10 @@ namespace BlackJack_TDD.BlackJack
                 if(Value == CardValue.Ace)
                 {
                     return 11;
+                }
+                if(Value == CardValue.YellowCard)
+                {
+                    return 0;
                 }
                 else
                 {
