@@ -3,10 +3,11 @@ using BlackJack_TDD.BlackJack;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static BlackJack_TDD.BlackJack.Card;
 
 namespace BlackJack_TDD
 {
-    public class CardsHandler
+    public class CardsHandler : Card
     {
         public Stack<Card> SetOfCards = new Stack<Card>();
         public List<Card> cards = new List<Card>();
@@ -37,7 +38,11 @@ namespace BlackJack_TDD
         //Enables the dealer to draw a card for either a player or the table.
         public Card DrawCard()
         {
-            return SetOfCards.Pop();
+            if (SetOfCards.Pop().Value == CardValue.YellowCard)
+            {
+                ShuffleDeck();
+            }
+                return SetOfCards.Pop();
         }
 
         private void ShuffleDeck()
