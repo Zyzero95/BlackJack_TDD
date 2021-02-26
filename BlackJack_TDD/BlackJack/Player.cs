@@ -2,7 +2,6 @@
 namespace BlackJack_TDD
 {
     using BlackJack_TDD.BlackJack;
-    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -14,18 +13,22 @@ namespace BlackJack_TDD
         /// Palyer Saldo
         /// </summary>
         public double Saldo { get; set; }
+
         /// <summary>
         /// players Cards
         /// </summary>
         public List<Card> Hand = new List<Card>();
-        public List<Card> Splithand = new List<Card>();
 
-        public int CardValue;
+        public List<Card> Splithand = new List<Card>();
+        private List<Card> TempAce = new List<Card>();
+
+        public int HandValue;
 
         /// <summary>
         /// amout player is betting in current round
         /// </summary>
         public double Bet { get; set; }
+
         public bool IsPlaying { get; private set; }
         private CardsHandler CardDeck;
 
@@ -33,7 +36,7 @@ namespace BlackJack_TDD
         /// player
         /// </summary>
         /// <param name="saldo">The amount player brings to table</param>
-        public Player(CardsHandler cardDeck,double saldo = 5000)
+        public Player(CardsHandler cardDeck, double saldo = 5000)
         {
             Saldo = saldo;
             CardDeck = cardDeck;
@@ -50,9 +53,9 @@ namespace BlackJack_TDD
             {
                 IsPlaying = false;
             }
-            else if(bet < Saldo)
+            else if (bet < Saldo)
             {
-                if(bet > Core.MinBet && bet < Core.MaxBet)
+                if (bet > Core.MinBet && bet < Core.MaxBet)
                 {
                     Bet = bet;
                     Saldo -= bet;
@@ -81,7 +84,7 @@ namespace BlackJack_TDD
 
                 case "hit":
                     Hand.Add(CardDeck.DrawCard());
-                    
+                    CalculateHand();
                     return new Return { Succses = true };
 
                 case "stand":
@@ -107,12 +110,12 @@ namespace BlackJack_TDD
                     Bet += Bet;
                     Hand.Add(CardDeck.DrawCard());
                     IsPlaying = false;
+                    CalculateHand();
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "Too little on Saldo" };
             }
             return new Return { Succses = false, Exception = "too many cards" };
-            
         }
 
         /// <summary>
@@ -129,22 +132,36 @@ namespace BlackJack_TDD
                     Splithand.Add(CardDeck.DrawCard());
                     Hand.RemoveAt(1);
                     Hand.Add(Hand[1]);
+                    CalculateHand();
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "card aint equal value" };
             }
             return new Return { Succses = false, Exception = "too many cards" };
         }
+
         /// <summary>
-        /// just add the values togther.
+        /// Calculates the value of the hand and insert it inro player.handValue
         /// </summary>
-        private void CalculateValue()
+        private void CalculateHand()
         {
-            foreach (var card  in Hand)
+            HandValue = 0;
+            foreach (var card in Hand)
             {
-                //CardValue += card.Value;
+                if (card.Value == Card.CardValue.Ace)
+                {
+                    TempAce.Add(card);
+                }
+                else
+                {
+                    HandValue += card.Score;
+                }
             }
-            if(CardValue >= 21)
+            if (TempAce.Count > 0)
+            {
+                HandValue = HandValue + (10 + TempAce.Count) < 21 ? HandValue + (10 + TempAce.Count) : HandValue + TempAce.Count;
+            }
+            if (HandValue >= 21)
             {
                 IsPlaying = false;
             }
