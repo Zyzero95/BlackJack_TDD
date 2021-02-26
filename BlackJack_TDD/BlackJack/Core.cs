@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BlackJack_TDD;
 
 namespace BlackJack_TDD.BlackJack
 {
@@ -21,6 +22,7 @@ namespace BlackJack_TDD.BlackJack
             var gamestate = Gamestage.starting;
             var dealer = new Dealer();
             var cardDeck = new CardsHandler();
+            var input = new Main.ConsoleInput();
             Players.Add(new Player(cardDeck));
 
             while (true)
@@ -47,15 +49,26 @@ namespace BlackJack_TDD.BlackJack
                 {
                     foreach(var player in Players)
                     {
-                        if (player.IsPlaying)
+                        while (player.IsPlaying)
                         {
-                            player.Turn(GetInput());
+                            foreach(var card in player.Hand)
+                            {
+                                Console.WriteLine(@"┌─────┐");
+                                Console.WriteLine(@"│{0,-2}   │", card.Value);
+                                Console.WriteLine(@"│  :hearts:  │");
+                                Console.WriteLine(@"│  {0,-2} │", card.Suit);
+                                Console.WriteLine(@"└─────┘");
+                                Console.WriteLine();
+                            }
+                            player.Turn(input.GetInput("what is your next move?"));
+
+                            Console.Clear();
                         }
                     }
                 }
             }
         }
 
-        private static string GetInput() => Console.ReadLine();
+        
     }
 }
