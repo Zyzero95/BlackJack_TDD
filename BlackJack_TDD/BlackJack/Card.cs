@@ -31,5 +31,24 @@ namespace BlackJack_TDD.BlackJack
         }
         public CardSuit Suit { get; set; }
         public CardValue Value { get; set; }
+
+        public int Score
+        {
+            get
+            {
+                if(Value == CardValue.Jack || Value == CardValue.Queen || Value == CardValue.King)
+                {
+                    return 10;
+                }
+                if(Value == CardValue.Ace)
+                {
+                    return 11;
+                }
+                else
+                {
+                    return (int)Value;
+                }
+            }
+        }
     }
 }
