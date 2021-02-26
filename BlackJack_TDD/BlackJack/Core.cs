@@ -32,16 +32,26 @@ namespace BlackJack_TDD.BlackJack
                     dealer.StartOfRound();
                     foreach (var player in Players)
                     {
-                        var tryparse = double.TryParse(Console.ReadLine(), out var bet);
-                        if (tryparse)
+                        var vailidbet = false;
+                        while (!vailidbet)
                         {
-                            var result = player.SetBet(bet);
-                            if (!result.Succses)
+                            var tryparse = double.TryParse(input.GetInput($"Table bet range\n {MinBet} - {MaxBet} \nHow much do you wnat to bet?"), out var bet);
+                            if (tryparse)
                             {
-                                Console.WriteLine(result.Exception);
+                                var result = player.SetBet(bet);
+                                if (!result.Succses)
+                                {
+                                    Console.WriteLine(result.Exception);
+                                }
+                                vailidbet = result.Succses;
                             }
+                            else
+                            {
+                                Console.WriteLine("bet wasn't an number");
+                            }
+                            
                         }
-                        Console.WriteLine("bet wasn't an number");
+
                     }
                     gamestate = Gamestage.ongoing;
                 }
@@ -54,9 +64,9 @@ namespace BlackJack_TDD.BlackJack
                             foreach(var card in player.Hand)
                             {
                                 Console.WriteLine(@"┌─────┐");
-                                Console.WriteLine(@"│{0,-2}   │", card.Value);
-                                Console.WriteLine(@"│  :hearts:  │");
-                                Console.WriteLine(@"│  {0,-2} │", card.Suit);
+                                Console.WriteLine(@"│{0}   │", card.Value);
+                                Console.WriteLine(@"│{0}│",card.Suit);
+                                Console.WriteLine(@"│  {0} │", card.Value);
                                 Console.WriteLine(@"└─────┘");
                                 Console.WriteLine();
                             }

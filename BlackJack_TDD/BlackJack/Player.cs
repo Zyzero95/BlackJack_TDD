@@ -18,11 +18,9 @@ namespace BlackJack_TDD
         /// players Cards
         /// </summary>
         public List<Card> Hand = new List<Card>();
+        public List<Card> Splithand = new List<Card>();
 
-        /// <summary>
-        /// the second set of cards if a player did split
-        /// </summary>
-        public List<Card> CardsSplit { get; set; }
+        public int CardValue;
 
         /// <summary>
         /// amout player is betting in current round
@@ -83,9 +81,11 @@ namespace BlackJack_TDD
 
                 case "hit":
                     Hand.Add(CardDeck.DrawCard());
+                    
                     return new Return { Succses = true };
 
                 case "stand":
+                    IsPlaying = false;
                     return new Return { Succses = true };
 
                 default:
@@ -106,6 +106,7 @@ namespace BlackJack_TDD
                     Saldo -= Bet;
                     Bet += Bet;
                     Hand.Add(CardDeck.DrawCard());
+                    IsPlaying = false;
                     return new Return { Succses = true };
                 }
                 return new Return { Succses = false, Exception = "Too little on Saldo" };
@@ -124,8 +125,8 @@ namespace BlackJack_TDD
             {
                 if (Hand[0] == Hand[1])
                 {
-                    CardsSplit.Add(Hand[1]);
-                    CardsSplit.Add(CardDeck.DrawCard());
+                    Splithand.Add(Hand[1]);
+                    Splithand.Add(CardDeck.DrawCard());
                     Hand.RemoveAt(1);
                     Hand.Add(Hand[1]);
                     return new Return { Succses = true };
@@ -133,6 +134,20 @@ namespace BlackJack_TDD
                 return new Return { Succses = false, Exception = "card aint equal value" };
             }
             return new Return { Succses = false, Exception = "too many cards" };
+        }
+        /// <summary>
+        /// just add the values togther.
+        /// </summary>
+        private void CalculateValue()
+        {
+            foreach (var card  in Hand)
+            {
+                //CardValue += card.Value;
+            }
+            if(CardValue >= 21)
+            {
+                IsPlaying = false;
+            }
         }
     }
 }
