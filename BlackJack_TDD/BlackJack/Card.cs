@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+//Viktor Löfgren
 namespace BlackJack_TDD.BlackJack
 {
     public class Card
