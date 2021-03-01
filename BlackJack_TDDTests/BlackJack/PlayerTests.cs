@@ -65,12 +65,13 @@ namespace BlackJack_TDD.Tests
         public void Doublesuccsesfull()
         {
             var deck = new CardsHandler();
-            var dealer = new Dealer();
+            var dealer = new Dealer(deck);
             var player = new Player(deck);
+            Core.Players.Add(player);
             player.SetBet(50);
             dealer.StartOfRound();
             var result = player.Turn("Double");
-            Assert.AreEqual(true, result.Succses, null, result.Exception);
+            Assert.AreEqual(true, result.Succses,null,result.Exception);
         }
     }
 }

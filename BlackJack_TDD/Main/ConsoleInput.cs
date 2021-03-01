@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BlackJack_TDD.Main
 {
-    class ConsoleInput
+    internal class ConsoleInput
     {
         public string GetInput(string question = null)
         {
@@ -13,10 +13,6 @@ namespace BlackJack_TDD.Main
                 Console.WriteLine(question);
             }
             return Console.ReadLine();
-        }
-        public void WriteLine(string output)
-        {
-            Console.WriteLine(output);
         }
     }
 }

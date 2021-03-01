@@ -20,9 +20,9 @@ namespace BlackJack_TDD.BlackJack
         public static void Game()
         {
             var gamestate = Gamestage.starting;
-            var dealer = new Dealer();
-            var cardDeck = new CardsHandler();
             var input = new Main.ConsoleInput();
+            var cardDeck = new CardsHandler();
+            var dealer = new Dealer(cardDeck);
             Players.Add(new Player(cardDeck));
 
             while (true)
@@ -49,9 +49,7 @@ namespace BlackJack_TDD.BlackJack
                             {
                                 Console.WriteLine("bet wasn't an number");
                             }
-                            
                         }
-
                     }
                     gamestate = Gamestage.ongoing;
                 }
@@ -63,22 +61,18 @@ namespace BlackJack_TDD.BlackJack
                         {
                             foreach(var card in player.Hand)
                             {
-                                Console.WriteLine(@"┌─────┐");
-                                Console.WriteLine(@"│{0}   │", card.Value);
-                                Console.WriteLine(@"│{0}│",card.Suit);
-                                Console.WriteLine(@"│  {0} │", card.Value);
-                                Console.WriteLine(@"└─────┘");
-                                Console.WriteLine();
                             }
                             player.Turn(input.GetInput("what is your next move?"));
 
                             Console.Clear();
                         }
                     }
+                    gamestate = Gamestage.end;
+                }
+                if (gamestate == Gamestage.end)
+                {
                 }
             }
         }
-
-        
     }
 }

@@ -45,14 +45,7 @@ namespace BlackJack_TDD.BlackJack
                 {
                     return 11;
                 }
-                if(Value == CardValue.YellowCard)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return (int)Value;
-                }
+                return Value == CardValue.YellowCard ? 0 : (int)Value;
             }
         }
     }

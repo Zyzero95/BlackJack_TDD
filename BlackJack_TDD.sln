@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack_TDD", "BlackJack_TDD\BlackJack_TDD.csproj", "{B5613710-F423-4576-84A5-6FA24CE4726C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack_TDDTests", "BlackJack_TDDTests\BlackJack_TDDTests.csproj", "{F267E272-713A-4C2F-803B-C61D888F8DD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack_TDDTests", "BlackJack_TDDTests\BlackJack_TDDTests.csproj", "{F267E272-713A-4C2F-803B-C61D888F8DD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CACBC101-65C2-4A11-ABDA-9CD81EFF97FA}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
