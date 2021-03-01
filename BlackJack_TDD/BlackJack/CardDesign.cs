@@ -27,9 +27,9 @@ namespace BlackJack_TDD.BlackJack
                 suit = "♠";
             }
             Console.WriteLine(@"┌─────┐");
-            Console.WriteLine(@"│{0}│", card.Value);
+            Console.WriteLine(@"│{0}│", card.Value.ToString().PadLeft(5));
             Console.WriteLine(@"│{0}    │", suit);
-            Console.WriteLine(@"│{0}│", card.Value);
+            Console.WriteLine(@"│{0}│", card.Value.ToString().PadLeft(5));
             Console.WriteLine(@"└─────┘");
             Console.WriteLine();
         }
