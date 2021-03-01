@@ -2,8 +2,6 @@
 using BlackJack_TDD.BlackJack;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using static BlackJack_TDD.BlackJack.Card;
 
 namespace BlackJack_TDD
 {

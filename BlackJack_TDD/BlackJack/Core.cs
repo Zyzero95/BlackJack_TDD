@@ -8,6 +8,8 @@ namespace BlackJack_TDD.BlackJack
     public static class Core
     {
         public static List<Player> Players = new List<Player>();
+
+        public static CardDesign design = new CardDesign();
         public static double MinBet { get; internal set; } = 20;
         public static double MaxBet { get; internal set; } = 500;
         public enum Gamestage
@@ -63,12 +65,7 @@ namespace BlackJack_TDD.BlackJack
                         {
                             foreach(var card in player.Hand)
                             {
-                                Console.WriteLine(@"┌─────┐");
-                                Console.WriteLine(@"│{0}   │", card.Value);
-                                Console.WriteLine(@"│{0}│",card.Suit);
-                                Console.WriteLine(@"│  {0} │", card.Value);
-                                Console.WriteLine(@"└─────┘");
-                                Console.WriteLine();
+                                design.Design(card);
                             }
                             player.Turn(input.GetInput("what is your next move?"));
 
