@@ -23,6 +23,7 @@ namespace BlackJack_TDD
         /// vlue of the card in teh hand
         /// </summary>
         public int HandValue;
+        public int SplitHandValue;
 
         /// <summary>
         /// second hand ov card if it was a slit
@@ -115,7 +116,14 @@ namespace BlackJack_TDD
                     return Double();
 
                 case "hit":
-                    Hand.Add(cardDeck.DrawCard());
+                    if (!SplithandIsplaying)
+                    {
+                        Hand.Add(cardDeck.DrawCard());
+                    }
+                    else
+                    {
+                         Splithand.Add(cardDeck.DrawCard());
+                    }
                     CalculateHand();
                     return new Return { Succses = true };
 
@@ -134,9 +142,10 @@ namespace BlackJack_TDD
         /// </summary>
         private void CalculateHand()
         {
-            HandValue = 0;
+            var tempValue = 0;
             var TempAce = new List<Card>();
-            foreach (var card in Hand)
+
+            foreach (var card in !SplithandIsplaying ? Hand : Splithand)
             {
                 if (card.Value == Card.CardValue.Ace)
                 {
@@ -144,16 +153,25 @@ namespace BlackJack_TDD
                 }
                 else
                 {
-                    HandValue += card.Score;
+                    tempValue += card.Score;
                 }
             }
             if (TempAce.Count > 0)
             {
-                HandValue = HandValue + (10 + TempAce.Count) <= 21 ? HandValue + (10 + TempAce.Count) : HandValue + TempAce.Count;
+                tempValue = tempValue + (10 + TempAce.Count) <= 21 ? tempValue + (10 + TempAce.Count) : tempValue + TempAce.Count;
             }
-            if (HandValue >= 21)
+            if (tempValue >= 21)
             {
                 IsPlaying = false;
+            }
+
+            if (SplithandIsplaying)
+            {
+                SplitHandValue = tempValue;
+            }
+            else
+            {
+                HandValue = tempValue;
             }
         }
 
@@ -169,7 +187,9 @@ namespace BlackJack_TDD
                 {
                     Saldo -= Bet;
                     Bet += Bet;
-                    Hand.Add(cardDeck.DrawCard());
+                    if (!SplithandIsplaying){ Hand.Add(cardDeck.DrawCard()); }
+                    else{ Splithand.Add(cardDeck.DrawCard()); }
+
                     IsPlaying = false;
                     CalculateHand();
                     return new Return { Succses = true };
@@ -182,7 +202,7 @@ namespace BlackJack_TDD
         /// <summary>
         /// Cheack if split is possible and then split the cards
         /// </summary>
-        /// <returns>object if it was succsesfull and error message</returns>
+        /// <returns>object if it was succsesfull and error message</returns>jagkom
         private Return Split()
         {
             if (Hand.Count == 2)
@@ -191,6 +211,7 @@ namespace BlackJack_TDD
                 {
                     if (Hand[0].Value == Hand[1].Value)
                     {
+                        Saldo -= Bet;
                         Splithand.Add(Hand[1]);
                         Splithand.Add(cardDeck.DrawCard());
                         Hand.RemoveAt(1);

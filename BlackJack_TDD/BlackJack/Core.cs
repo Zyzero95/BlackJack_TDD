@@ -57,11 +57,19 @@ namespace BlackJack_TDD.BlackJack
                         {
                             PlayerSlipHand(input, player);
                         }
-
-                        design.Design(Dealer.Hand[0]);
+                    }
+                    foreach (var card in Dealer.Hand)
+                    {
+                        design.Design(card);
+                    }
+                    Console.WriteLine("Your card");
+                    foreach (var card in player.Hand)
+                    {
+                        design.Design(card);
                     }
                 }
                 Dealer.Turn();
+
                 //EndPhase
                 Calculatewin();
             }
@@ -137,6 +145,23 @@ namespace BlackJack_TDD.BlackJack
                     else
                     {
                         Console.WriteLine("you lost");
+                    }
+                    if (player.Splithand.Count > 0)
+                    {
+                        if (player.SplitHandValue == 21)
+                        {
+                            Console.WriteLine("blackjack");
+                            player.Saldo += player.Bet + (player.Bet * 1.5);
+                        }
+                        else if ((player.SplitHandValue < 21 && player.SplitHandValue > Dealer.HandValue) || (player.HandValue < 21 && Dealer.HandValue > 21))
+                        {
+                            Console.WriteLine("won");
+                            player.Saldo += player.Bet * 2;
+                        }
+                        else
+                        {
+                            Console.WriteLine("you lost");
+                        }
                     }
                 }
             }
