@@ -28,6 +28,7 @@ namespace BlackJack_TDD
         /// second hand ov card if it was a slit
         /// </summary>
         public List<Card> Splithand = new List<Card>();
+        public bool SplithandIsplaying { get; set; }
 
         private CardsHandler cardDeck;
 
@@ -50,7 +51,7 @@ namespace BlackJack_TDD
         /// <summary>
         /// if pleyer is coint to make more moves this turn.
         /// </summary>
-        public bool IsPlaying { get; private set; }
+        public bool IsPlaying { get;  set; }
         /// <summary>
         /// Palyer Saldo
         /// </summary>
