@@ -70,6 +70,10 @@ namespace BlackJack_TDD.BlackJack
                             Console.Clear();
                         }
                     }
+                    foreach(var card in dealer.Hand)
+                    {
+                        design.Design(card);
+                    }
                     gamestate = Gamestage.end;
                 }
                 if (gamestate == Gamestage.end)
