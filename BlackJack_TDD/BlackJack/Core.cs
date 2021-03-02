@@ -52,24 +52,10 @@ namespace BlackJack_TDD.BlackJack
                 {
                     if (player.IsPlaying)
                     {
-                        while (player.IsPlaying)
+                        PlayerHand(input, player);
+                        if (player.Splithand.Count > 0)
                         {
-                            foreach (var card in Dealer.Hand)
-                            {
-                                design.Design(card);
-                            }
-                            Console.WriteLine("Your card");
-                            foreach (var card in player.Hand)
-                            {
-                                design.Design(card);
-                            }
-                            if (player.CheatOn)
-                            {
-                                player.Tutoring.Cheat();
-                            }
-                            player.Turn(input.GetInput("what is your next move?"));
-
-                            Console.Clear();
+                            PlayerSlipHand(input, player);
                         }
 
                         foreach (var card in player.Hand)
@@ -81,6 +67,54 @@ namespace BlackJack_TDD.BlackJack
                 Dealer.Turn();
                 //EndPhase
                 Calculatewin();
+            }
+        }
+
+        private static void PlayerSlipHand(Main.ConsoleInput input, Player player)
+        {
+            player.SplithandIsplaying = true;
+            player.IsPlaying = true;
+            while (player.IsPlaying)
+            {
+                foreach (var card in Dealer.Hand)
+                {
+                    design.Design(card);
+                }
+                Console.WriteLine("Your card");
+                foreach (var card in player.Splithand)
+                {
+                    design.Design(card);
+                }
+                if (player.CheatOn)
+                {
+                    player.Tutoring.Cheat();
+                }
+                player.Turn(input.GetInput("what is your next move?"));
+
+                Console.Clear();
+            }
+        }
+
+        private static void PlayerHand(Main.ConsoleInput input, Player player)
+        {
+            while (player.IsPlaying)
+            {
+                foreach (var card in Dealer.Hand)
+                {
+                    design.Design(card);
+                }
+                Console.WriteLine("Your card");
+                foreach (var card in player.Hand)
+                {
+                    design.Design(card);
+                }
+                if (player.CheatOn)
+                {
+                    player.Tutoring.Cheat();
+                }
+                player.Turn(input.GetInput("what is your next move?"));
+
+                Console.Clear();
             }
         }
 

@@ -28,6 +28,7 @@ namespace BlackJack_TDD
         /// second hand ov card if it was a slit
         /// </summary>
         public List<Card> Splithand = new List<Card>();
+        public bool SplithandIsplaying { get; set; }
 
         private CardsHandler cardDeck;
 
@@ -50,7 +51,7 @@ namespace BlackJack_TDD
         /// <summary>
         /// if pleyer is coint to make more moves this turn.
         /// </summary>
-        public bool IsPlaying { get; private set; }
+        public bool IsPlaying { get;  set; }
         /// <summary>
         /// Palyer Saldo
         /// </summary>
@@ -184,20 +185,25 @@ namespace BlackJack_TDD
         /// <returns>object if it was succsesfull and error message</returns>
         private Return Split()
         {
-            if (Hand.Count == 2)
+            if (Splithand.Count == 0)
             {
-                if (Hand[0] == Hand[1])
+                if (Hand.Count == 2)
                 {
-                    Splithand.Add(Hand[1]);
-                    Splithand.Add(cardDeck.DrawCard());
-                    Hand.RemoveAt(1);
-                    Hand.Add(Hand[1]);
-                    CalculateHand();
-                    return new Return { Succses = true };
+                    if (Hand[0].Value == Hand[1].Value)
+                    {
+                        Splithand.Add(Hand[1]);
+                        Splithand.Add(cardDeck.DrawCard());
+                        Hand.RemoveAt(1);
+                        Hand.Add(Hand[1]);
+                        CalculateHand();
+                        return new Return { Succses = true };
+                    }
+                    return new Return { Succses = false, Exception = "card aint equal value" };
                 }
-                return new Return { Succses = false, Exception = "card aint equal value" };
+                return new Return { Succses = false, Exception = "too many cards" };
             }
-            return new Return { Succses = false, Exception = "too many cards" };
+            return new Return { Succses = false, Exception = "alreade Split once" };
+
         }
     }
 }

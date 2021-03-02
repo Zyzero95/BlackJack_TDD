@@ -17,6 +17,8 @@ namespace BlackJack_TDD.BlackJack
             foreach (var player in Core.Players)
             {
                 player.Hand.Clear();
+                player.Splithand.Clear();
+                player.SplithandIsplaying = false;
             }
             Hand.Clear();
             for (int i = 0; i <= 1; i++)
