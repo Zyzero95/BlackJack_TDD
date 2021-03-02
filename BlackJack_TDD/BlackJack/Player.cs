@@ -149,7 +149,7 @@ namespace BlackJack_TDD
             }
             if (TempAce.Count > 0)
             {
-                HandValue = HandValue + (10 + TempAce.Count) < 21 ? HandValue + (10 + TempAce.Count) : HandValue + TempAce.Count;
+                HandValue = HandValue + (10 + TempAce.Count) <= 21 ? HandValue + (10 + TempAce.Count) : HandValue + TempAce.Count;
             }
             if (HandValue >= 21)
             {
@@ -187,16 +187,20 @@ namespace BlackJack_TDD
         {
             if (Hand.Count == 2)
             {
-                if (Hand[0].Value == Hand[1].Value)
+                if (Saldo > Bet)
                 {
-                    Splithand.Add(Hand[1]);
-                    Splithand.Add(cardDeck.DrawCard());
-                    Hand.RemoveAt(1);
-                    Hand.Add(cardDeck.DrawCard());
-                    CalculateHand();
-                    return new Return { Succses = true };
+                    if (Hand[0].Value == Hand[1].Value)
+                    {
+                        Splithand.Add(Hand[1]);
+                        Splithand.Add(cardDeck.DrawCard());
+                        Hand.RemoveAt(1);
+                        Hand.Add(cardDeck.DrawCard());
+                        CalculateHand();
+                        return new Return { Succses = true };
+                    }
+                    return new Return { Succses = false, Exception = "card aint equal value" };
                 }
-                return new Return { Succses = false, Exception = "card aint equal value" };
+                return new Return { Succses = false, Exception = "you didn't bring enougth to the casino" };
             }
             return new Return { Succses = false, Exception = "too many cards" };
         }

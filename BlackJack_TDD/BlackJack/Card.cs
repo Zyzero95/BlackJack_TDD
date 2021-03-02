@@ -47,9 +47,6 @@ namespace BlackJack_TDD.BlackJack
                 return Value == CardValue.YellowCard ? 0 : (int)Value;
             }
         }
-        public override string ToString()
-        {
-            return Suit.ToString()+ " " + Value.ToString();
-        }
+        public override string ToString() => Suit+ " " + Value;
     }
 }
