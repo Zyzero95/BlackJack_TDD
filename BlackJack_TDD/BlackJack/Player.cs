@@ -186,12 +186,12 @@ namespace BlackJack_TDD
         {
             if (Hand.Count == 2)
             {
-                if (Hand[0] == Hand[1])
+                if (Hand[0].Value == Hand[1].Value)
                 {
                     Splithand.Add(Hand[1]);
                     Splithand.Add(cardDeck.DrawCard());
                     Hand.RemoveAt(1);
-                    Hand.Add(Hand[1]);
+                    Hand.Add(cardDeck.DrawCard());
                     CalculateHand();
                     return new Return { Succses = true };
                 }
