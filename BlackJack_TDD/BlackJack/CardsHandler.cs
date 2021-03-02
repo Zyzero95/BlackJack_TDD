@@ -13,7 +13,7 @@ namespace BlackJack_TDD
         public CardsHandler()
         {
             CreateDeck();
-            ShuffleDeck();
+            ShuffleDeck(SetOfCards);
         }
 
         //Creates a deck of cards.
@@ -38,12 +38,13 @@ namespace BlackJack_TDD
         {
             if (SetOfCards.Peek().Value == CardValue.YellowCard)
             {
-                ShuffleDeck();
+                SetOfCards.Clear();
+                ShuffleDeck(SetOfCards);
             }
-            return SetOfCards.Pop();
+                return SetOfCards.Pop();
         }
 
-        private void ShuffleDeck()
+        private void ShuffleDeck(Stack<Card> cardDeck)
         {
             var arrayOfCards = cards.ToArray();
             var r = new Random();
@@ -58,7 +59,7 @@ namespace BlackJack_TDD
             }
             for (var j = 0; j < arrayOfCards.Length; j++)
             {
-                SetOfCards.Push(arrayOfCards[j]);
+                cardDeck.Push(arrayOfCards[j]);
             }
         }
     }

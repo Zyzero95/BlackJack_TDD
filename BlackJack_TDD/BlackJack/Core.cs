@@ -72,10 +72,7 @@ namespace BlackJack_TDD.BlackJack
                             Console.Clear();
                         }
 
-                        foreach (var card in player.Hand)
-                        {
-                            design.Design(card);
-                        }
+                        design.Design(Dealer.Hand[0]);
                     }
                 }
                 Dealer.Turn();
