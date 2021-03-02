@@ -185,25 +185,20 @@ namespace BlackJack_TDD
         /// <returns>object if it was succsesfull and error message</returns>
         private Return Split()
         {
-            if (Splithand.Count == 0)
+            if (Hand.Count == 2)
             {
-                if (Hand.Count == 2)
+                if (Hand[0].Value == Hand[1].Value)
                 {
-                    if (Hand[0].Value == Hand[1].Value)
-                    {
-                        Splithand.Add(Hand[1]);
-                        Splithand.Add(cardDeck.DrawCard());
-                        Hand.RemoveAt(1);
-                        Hand.Add(Hand[1]);
-                        CalculateHand();
-                        return new Return { Succses = true };
-                    }
-                    return new Return { Succses = false, Exception = "card aint equal value" };
+                    Splithand.Add(Hand[1]);
+                    Splithand.Add(cardDeck.DrawCard());
+                    Hand.RemoveAt(1);
+                    Hand.Add(cardDeck.DrawCard());
+                    CalculateHand();
+                    return new Return { Succses = true };
                 }
-                return new Return { Succses = false, Exception = "too many cards" };
+                return new Return { Succses = false, Exception = "card aint equal value" };
             }
-            return new Return { Succses = false, Exception = "alreade Split once" };
-
+            return new Return { Succses = false, Exception = "too many cards" };
         }
     }
 }
