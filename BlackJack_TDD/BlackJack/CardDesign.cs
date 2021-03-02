@@ -32,5 +32,11 @@ namespace BlackJack_TDD.BlackJack
             Console.WriteLine(@"└─────┘");
             Console.WriteLine();
         }
+        public void FlipCard(Card card)
+        {
+            Card flipCard = new Card();
+            flipCard = card;
+
+        }
     }
 }

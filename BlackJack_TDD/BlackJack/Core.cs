@@ -58,10 +58,7 @@ namespace BlackJack_TDD.BlackJack
                             PlayerSlipHand(input, player);
                         }
 
-                        foreach (var card in player.Hand)
-                        {
-                            design.Design(card);
-                        }
+                        design.Design(Dealer.Hand[0]);
                     }
                 }
                 Dealer.Turn();
