@@ -36,11 +36,11 @@ namespace BlackJack_TDD
         //Enables the dealer to draw a card for either a player or the table.
         public Card DrawCard()
         {
-            if (SetOfCards.Pop().Value == CardValue.YellowCard)
+            if (SetOfCards.Peek().Value == CardValue.YellowCard)
             {
                 ShuffleDeck();
             }
-                return SetOfCards.Pop();
+            return SetOfCards.Pop();
         }
 
         private void ShuffleDeck()
@@ -56,7 +56,7 @@ namespace BlackJack_TDD
                 arrayOfCards[i] = arrayOfCards[k];
                 arrayOfCards[k] = tempCard;
             }
-            for(var j = 0; j < arrayOfCards.Length; j++)
+            for (var j = 0; j < arrayOfCards.Length; j++)
             {
                 SetOfCards.Push(arrayOfCards[j]);
             }

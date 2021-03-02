@@ -10,27 +10,26 @@ namespace BlackJack_TDD
     public class Player
     {
         /// <summary>
-        /// Palyer Saldo
+        /// tutoring Activted
         /// </summary>
-        public double Saldo { get; set; }
+        public bool CheatOn;
 
         /// <summary>
         /// players Cards
         /// </summary>
         public List<Card> Hand = new List<Card>();
 
-        public List<Card> Splithand = new List<Card>();
-        private List<Card> TempAce = new List<Card>();
-
+        /// <summary>
+        /// vlue of the card in teh hand
+        /// </summary>
         public int HandValue;
 
         /// <summary>
-        /// amout player is betting in current round
+        /// second hand ov card if it was a slit
         /// </summary>
-        public double Bet { get; set; }
+        public List<Card> Splithand = new List<Card>();
 
-        public bool IsPlaying { get; private set; }
-        private CardsHandler CardDeck;
+        private CardsHandler cardDeck;
 
         /// <summary>
         /// player
@@ -39,23 +38,50 @@ namespace BlackJack_TDD
         public Player(CardsHandler cardDeck, double saldo = 5000)
         {
             Saldo = saldo;
-            CardDeck = cardDeck;
+            this.cardDeck = cardDeck;
             Hand.Add(cardDeck.DrawCard());
         }
 
         /// <summary>
-        /// clears cards and set bet for next round
+        /// amout player is betting in current round
         /// </summary>
-        /// <param name="bet">about player is betting</param>
+        public double Bet { get; set; }
+
+        /// <summary>
+        /// if pleyer is coint to make more moves this turn.
+        /// </summary>
+        public bool IsPlaying { get; private set; }
+        /// <summary>
+        /// Palyer Saldo
+        /// </summary>
+        public double Saldo { get; set; }
+
+        /// <summary>
+        /// The TutoringBot
+        /// </summary>
+        public Tutoring Tutoring { get; private set; }
+
+        /// <summary>
+        /// clears cards and set bet for next round
+        /// 0 = skip round
+        /// </summary>
+        /// <param name="bet">pleyer Bet amount</param>
         public Return SetBet(double bet)
         {
-            if (bet == 0)
+            if (bet == -1337)
+            {
+                CheatOn = true;
+                Tutoring = new Tutoring(this);
+                return new Return { Succses = false, Exception = "Activaded Cheat" };
+            }
+            else if (bet == 0)
             {
                 IsPlaying = false;
+                return new Return { Succses = true, Exception = "palyer is skiping this round" };
             }
-            else if (bet < Saldo)
+            else if (bet <= Saldo)
             {
-                if (bet > Core.MinBet && bet < Core.MaxBet)
+                if (bet >= Core.MinBet && bet <= Core.MaxBet)
                 {
                     Bet = bet;
                     Saldo -= bet;
@@ -74,6 +100,11 @@ namespace BlackJack_TDD
         /// <returns>object if it was succsesfull and error message</returns>
         public Return Turn(string choice)
         {
+            if (Hand.Count == 2)
+            {
+                CalculateHand();
+            }
+
             switch (choice.ToLower())
             {
                 case "split":
@@ -83,16 +114,45 @@ namespace BlackJack_TDD
                     return Double();
 
                 case "hit":
-                    Hand.Add(CardDeck.DrawCard());
+                    Hand.Add(cardDeck.DrawCard());
                     CalculateHand();
                     return new Return { Succses = true };
 
                 case "stand":
                     IsPlaying = false;
+                    CalculateHand();
                     return new Return { Succses = true };
 
                 default:
                     return new Return { Succses = false, Exception = "no choice was made" };
+            }
+        }
+
+        /// <summary>
+        /// Calculates the value of the hand and insert it inro player.handValue
+        /// </summary>
+        private void CalculateHand()
+        {
+            HandValue = 0;
+            var TempAce = new List<Card>();
+            foreach (var card in Hand)
+            {
+                if (card.Value == Card.CardValue.Ace)
+                {
+                    TempAce.Add(card);
+                }
+                else
+                {
+                    HandValue += card.Score;
+                }
+            }
+            if (TempAce.Count > 0)
+            {
+                HandValue = HandValue + (10 + TempAce.Count) < 21 ? HandValue + (10 + TempAce.Count) : HandValue + TempAce.Count;
+            }
+            if (HandValue >= 21)
+            {
+                IsPlaying = false;
             }
         }
 
@@ -108,7 +168,7 @@ namespace BlackJack_TDD
                 {
                     Saldo -= Bet;
                     Bet += Bet;
-                    Hand.Add(CardDeck.DrawCard());
+                    Hand.Add(cardDeck.DrawCard());
                     IsPlaying = false;
                     CalculateHand();
                     return new Return { Succses = true };
@@ -129,7 +189,7 @@ namespace BlackJack_TDD
                 if (Hand[0] == Hand[1])
                 {
                     Splithand.Add(Hand[1]);
-                    Splithand.Add(CardDeck.DrawCard());
+                    Splithand.Add(cardDeck.DrawCard());
                     Hand.RemoveAt(1);
                     Hand.Add(Hand[1]);
                     CalculateHand();
@@ -138,33 +198,6 @@ namespace BlackJack_TDD
                 return new Return { Succses = false, Exception = "card aint equal value" };
             }
             return new Return { Succses = false, Exception = "too many cards" };
-        }
-
-        /// <summary>
-        /// Calculates the value of the hand and insert it inro player.handValue
-        /// </summary>
-        private void CalculateHand()
-        {
-            HandValue = 0;
-            foreach (var card in Hand)
-            {
-                if (card.Value == Card.CardValue.Ace)
-                {
-                    TempAce.Add(card);
-                }
-                else
-                {
-                    HandValue += card.Score;
-                }
-            }
-            if (TempAce.Count > 0)
-            {
-                HandValue = HandValue + (10 + TempAce.Count) < 21 ? HandValue + (10 + TempAce.Count) : HandValue + TempAce.Count;
-            }
-            if (HandValue >= 21)
-            {
-                IsPlaying = false;
-            }
         }
     }
 }

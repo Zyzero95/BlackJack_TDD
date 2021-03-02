@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BlackJack_TDD
+﻿namespace BlackJack_TDD
 {
     internal static class Program
     {

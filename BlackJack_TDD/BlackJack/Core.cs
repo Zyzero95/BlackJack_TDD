@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using BlackJack_TDD;
 
 namespace BlackJack_TDD.BlackJack
 {
@@ -12,68 +10,103 @@ namespace BlackJack_TDD.BlackJack
         public static CardDesign design = new CardDesign();
         public static double MinBet { get; internal set; } = 20;
         public static double MaxBet { get; internal set; } = 500;
-        public enum Gamestage
-        {
-            starting,
-            ongoing,
-            end
-        }
+        public static CardsHandler CardDeck { get; set; }
+        public static Dealer Dealer { get; set; }
+
 
         public static void Game()
         {
-            var gamestate = Gamestage.starting;
             var input = new Main.ConsoleInput();
-            var cardDeck = new CardsHandler();
-            var dealer = new Dealer(cardDeck);
-            Players.Add(new Player(cardDeck));
+            CardDeck = new CardsHandler();
+            Dealer = new Dealer(CardDeck);
+            Players.Add(new Player(CardDeck));
 
             while (true)
             {
-                if(gamestate == Gamestage.starting)
+                //starting Phase
+                Dealer.StartOfRound();
+                foreach (var player in Players)
                 {
-                    dealer.StartOfRound();
-                    foreach (var player in Players)
+                    var vailidbet = false;
+                    while (!vailidbet)
                     {
-                        var vailidbet = false;
-                        while (!vailidbet)
+                        var tryparse = double.TryParse(input.GetInput($"Saldo: {player.Saldo} \nTable bet range\n {MinBet} - {MaxBet} \nHow much do you wnat to bet?"), out var bet);
+                        if (tryparse)
                         {
-                            var tryparse = double.TryParse(input.GetInput($"Table bet range\n {MinBet} - {MaxBet} \nHow much do you wnat to bet?"), out var bet);
-                            if (tryparse)
+                            var result = player.SetBet(bet);
+                            if (!result.Succses)
                             {
-                                var result = player.SetBet(bet);
-                                if (!result.Succses)
-                                {
-                                    Console.WriteLine(result.Exception);
-                                }
-                                vailidbet = result.Succses;
+                                Console.WriteLine(result.Exception);
                             }
-                            else
-                            {
-                                Console.WriteLine("bet wasn't an number");
-                            }
+                            vailidbet = result.Succses;
+                        }
+                        else
+                        {
+                            Console.WriteLine("bet wasn't an number");
                         }
                     }
-                    gamestate = Gamestage.ongoing;
                 }
-                if (gamestate == Gamestage.ongoing)
+                //GamePhase
+                Console.Clear();
+                foreach (var player in Players)
                 {
-                    foreach(var player in Players)
+                    if (player.IsPlaying)
                     {
                         while (player.IsPlaying)
                         {
-                            foreach(var card in player.Hand)
+                            foreach (var card in Dealer.Hand)
                             {
                                 design.Design(card);
+                            }
+                            Console.WriteLine("Your card");
+                            foreach (var card in player.Hand)
+                            {
+                                design.Design(card);
+                            }
+                            if (player.CheatOn)
+                            {
+                                player.Tutoring.Cheat();
                             }
                             player.Turn(input.GetInput("what is your next move?"));
 
                             Console.Clear();
                         }
+
+                        foreach (var card in player.Hand)
+                        {
+                            design.Design(card);
+                        }
                     }
-                    gamestate = Gamestage.end;
                 }
-                if (gamestate == Gamestage.end)
+                Dealer.Turn();
+                //EndPhase
+                Calculatewin();
+            }
+        }
+
+        /// <summary>
+        /// Calculte if player wins agienst the House
+        /// </summary>
+        public static void Calculatewin()
+        {
+            foreach (var player in Players)
+            {
+                if (player.Bet > 0)
                 {
+                    if (player.HandValue == 21)
+                    {
+                        Console.WriteLine("blackjack");
+                        player.Saldo += player.Bet + (player.Bet * 1.5);
+                    }
+                    else if ((player.HandValue < 21 && player.HandValue > Dealer.HandValue) || (player.HandValue < 21 && Dealer.HandValue > 21))
+                    {
+                        Console.WriteLine("won");
+                        player.Saldo += player.Bet * 2;
+                    }
+                    else
+                    {
+                        Console.WriteLine("you lost");
+                    }
                 }
             }
         }

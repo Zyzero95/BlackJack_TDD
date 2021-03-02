@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-//Viktor Löfgren
+﻿//Viktor Löfgren
 namespace BlackJack_TDD.BlackJack
 {
     public class Card
@@ -14,6 +10,7 @@ namespace BlackJack_TDD.BlackJack
             Hearts,
             Diamonds
         }
+
         public enum CardValue
         {
             YellowCard = 0,
@@ -31,6 +28,7 @@ namespace BlackJack_TDD.BlackJack
             Queen = 12,
             King = 13
         }
+
         public CardSuit Suit { get; set; }
         public CardValue Value { get; set; }
 
@@ -38,16 +36,20 @@ namespace BlackJack_TDD.BlackJack
         {
             get
             {
-                if(Value == CardValue.Jack || Value == CardValue.Queen || Value == CardValue.King)
+                if (Value == CardValue.Jack || Value == CardValue.Queen || Value == CardValue.King)
                 {
                     return 10;
                 }
-                if(Value == CardValue.Ace)
+                if (Value == CardValue.Ace)
                 {
                     return 11;
                 }
                 return Value == CardValue.YellowCard ? 0 : (int)Value;
             }
+        }
+        public override string ToString()
+        {
+            return Suit.ToString()+ " " + Value.ToString();
         }
     }
 }

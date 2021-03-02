@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BlackJack_TDD.BlackJack
 {
     public class Dealer
     {
-        public List<Card>Hand = new List<Card>();
-        public CardsHandler cardsHandler = new CardsHandler();
+        public List<Card> Hand = new List<Card>();
 
         public int HandValue;
         private List<Card> TempAce = new List<Card>();
         private CardsHandler CardDeck;
 
-        public Dealer(CardsHandler deck)
-        {
-            CardDeck = deck;
-        }
+        public Dealer(CardsHandler deck) => CardDeck = deck;
 
         public void StartOfRound()
         {
@@ -24,15 +18,17 @@ namespace BlackJack_TDD.BlackJack
             {
                 player.Hand.Clear();
             }
+            Hand.Clear();
             for (int i = 0; i <= 1; i++)
             {
                 foreach (var player in Core.Players)
                 {
-                    player.Hand.Add(cardsHandler.DrawCard());
+                    player.Hand.Add(CardDeck.DrawCard());
                 }
-                Hand.Add(cardsHandler.DrawCard());
+                Hand.Add(CardDeck.DrawCard());
             }
         }
+
         public void Turn()
         {
             var draw = true;
@@ -42,6 +38,7 @@ namespace BlackJack_TDD.BlackJack
                 if (HandValue < 17)
                 {
                     Hand.Add(CardDeck.DrawCard());
+                    CalculateHand();
                 }
                 else
                 {
@@ -49,6 +46,7 @@ namespace BlackJack_TDD.BlackJack
                 }
             }
         }
+
         private void CalculateHand()
         {
             HandValue = 0;

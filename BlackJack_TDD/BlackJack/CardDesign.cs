@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BlackJack_TDD.BlackJack
 {
@@ -8,21 +6,22 @@ namespace BlackJack_TDD.BlackJack
     {
         public Card cards = new Card();
         public string suit;
+
         public void Design(Card card)
         {
-            if(cards.Suit == Card.CardSuit.Clubs)
+            if (cards.Suit == Card.CardSuit.Clubs)
             {
                 suit = "♣";
             }
-            else if(cards.Suit == Card.CardSuit.Diamonds)
+            else if (cards.Suit == Card.CardSuit.Diamonds)
             {
                 suit = "♦";
             }
-            else if(cards.Suit == Card.CardSuit.Hearts)
+            else if (cards.Suit == Card.CardSuit.Hearts)
             {
                 suit = "♥";
             }
-            else if(cards.Suit == Card.CardSuit.Spades)
+            else if (cards.Suit == Card.CardSuit.Spades)
             {
                 suit = "♠";
             }
