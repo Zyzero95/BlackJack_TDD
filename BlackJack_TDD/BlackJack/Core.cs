@@ -19,14 +19,16 @@ namespace BlackJack_TDD.BlackJack
             var input = new Main.ConsoleInput();
             CardDeck = new CardsHandler();
             Dealer = new Dealer(CardDeck);
-            Players.Add(new Player(CardDeck));
+            AddPlayers(input);
 
             while (true)
             {
                 //starting Phase
                 Dealer.StartOfRound();
+                var i = 0;
                 foreach (var player in Players)
-                {
+                { i++;
+                    Console.WriteLine($"plyer {i}:\n");
                     var vailidbet = false;
                     while (!vailidbet)
                     {
@@ -72,6 +74,26 @@ namespace BlackJack_TDD.BlackJack
 
                 //EndPhase
                 Calculatewin();
+            }
+        }
+
+        private static void AddPlayers(Main.ConsoleInput input)
+        {
+            var loop = true;
+            while (loop)
+            {
+                if (int.TryParse(input.GetInput("how many player between 0 and 7"), out int amount))
+                {
+                    if (amount > 0 && amount < 8)
+                    {
+                        for (int i = 0; i < amount; i++)
+                        {
+                            Players.Add(new Player(CardDeck));
+                        }
+                        return;
+                    }
+                    Console.WriteLine("wrong value");
+                }
             }
         }
 
@@ -127,6 +149,7 @@ namespace BlackJack_TDD.BlackJack
         /// Calculte if player wins agienst the House
         /// </summary>
         public static void Calculatewin()
+            //TODO: fix push
         {
             foreach (var player in Players)
             {
