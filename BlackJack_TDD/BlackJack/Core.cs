@@ -165,6 +165,10 @@ namespace BlackJack_TDD.BlackJack
                         Console.WriteLine("won");
                         player.Saldo += player.Bet * 2;
                     }
+                    else if (player.HandValue < 21 && player.HandValue == Dealer.HandValue){
+                        Console.WriteLine("Push");
+                        player.Saldo += player.Bet;
+                    }
                     else
                     {
                         Console.WriteLine("you lost");
@@ -180,6 +184,11 @@ namespace BlackJack_TDD.BlackJack
                         {
                             Console.WriteLine("won");
                             player.Saldo += player.Bet * 2;
+                        }
+                        else if (player.SplitHandValue < 21 && player.SplitHandValue == Dealer.HandValue)
+                        {
+                            Console.WriteLine("Push");
+                            player.Saldo += player.Bet;
                         }
                         else
                         {
