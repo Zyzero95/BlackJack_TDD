@@ -8,3 +8,6 @@ dotnet_diagnostic.RCS1169.severity = silent
 
 # IDE0044: Add readonly modifier
 dotnet_diagnostic.IDE0044.severity = silent
+
+# RCS1192: Unnecessary usage of verbatim string literal.
+dotnet_diagnostic.RCS1192.severity = silent

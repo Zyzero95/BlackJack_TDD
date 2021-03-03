@@ -102,11 +102,6 @@ namespace BlackJack_TDD
         /// <returns>object if it was succsesfull and error message</returns>
         public Return Turn(string choice)
         {
-            if (Hand.Count == 2)
-            {
-                CalculateHand();
-            }
-
             switch (choice.ToLower())
             {
                 case "split":
@@ -140,7 +135,7 @@ namespace BlackJack_TDD
         /// <summary>
         /// Calculates the value of the hand and insert it inro player.handValue
         /// </summary>
-        private void CalculateHand()
+        internal void CalculateHand()
         {
             var tempValue = 0;
             var TempAce = new List<Card>();

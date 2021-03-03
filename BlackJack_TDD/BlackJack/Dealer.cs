@@ -29,6 +29,11 @@ namespace BlackJack_TDD.BlackJack
                 }
                 Hand.Add(CardDeck.DrawCard());
             }
+            foreach (var  player in Core.Players)
+            {
+                player.CalculateHand();
+            }
+            CalculateHand();
         }
 
         public void Turn()

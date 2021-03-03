@@ -40,8 +40,11 @@ namespace BlackJack_TDD
             {
                 SetOfCards.Clear();
                 ShuffleDeck(SetOfCards);
+                Tutoring.ClearCard();
             }
-                return SetOfCards.Pop();
+            var card = SetOfCards.Pop();
+            Tutoring.RemoveOneCard(card);
+            return card;
         }
 
         private void ShuffleDeck(Stack<Card> cardDeck)

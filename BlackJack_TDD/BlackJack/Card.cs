@@ -42,7 +42,7 @@ namespace BlackJack_TDD.BlackJack
                 }
                 if (Value == CardValue.Ace)
                 {
-                    return 11;
+                    return 1;
                 }
                 return Value == CardValue.YellowCard ? 0 : (int)Value;
             }

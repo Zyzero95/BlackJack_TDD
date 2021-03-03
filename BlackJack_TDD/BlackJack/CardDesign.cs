@@ -34,9 +34,8 @@ namespace BlackJack_TDD.BlackJack
         }
         public void FlipCard(Card card)
         {
-            Card flipCard = new Card();
+            var flipCard = new Card();
             flipCard = card;
-
         }
     }
 }
