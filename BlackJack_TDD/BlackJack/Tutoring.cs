@@ -68,31 +68,45 @@ namespace BlackJack_TDD
             var probabilityDealer = CalculatePobabilitiy((int)Core.Dealer.Hand[0].Value);
             var probabilityPlayer = CalculatePobabilitiy(player.HandValue);
 
-            int untilBlackJack;
-            if (player.HandValue < 15)
+
+            if (probabilityPlayer.OverTwentyone > 0.70)
             {
-                return "You should hit";
+                return helpterSwitch ? "You should stand" : "You should hit";
             }
-            else
+            else if (probabilityPlayer.OverTwentyone < 0.30)
             {
-                untilBlackJack = 21 - player.HandValue;
-                var listOfVaildDraws = DeckOfCard.Where(x => x.Score <= untilBlackJack).ToList();
-                if (Core.Dealer.HandValue > 16 && player.HandValue < Core.Dealer.HandValue)
-                {
-                    return "You should hit";
-                }
-                else if (player.HandValue >= 20)
-                {
-                    return "You should stand";
-                }
-                else if (listOfVaildDraws.Count >= DeckOfCard.Count / 2)
-                {
-                    return helpterSwitch ? "You should hit" : "You should stand";
-                }
-                else
-                {
-                    return !helpterSwitch ? "You should hit" : "You should stand";
-                }
+                return helpterSwitch ? "You should hit" : "You should stand";
+            }
+            else if(probabilityDealer.OverTwentyone > 0.80)
+            {
+                return helpterSwitch ? "You should stand" : "You should hit";
+            }
+            else if (player.HandValue == 17 && probabilityDealer.OverTwentyone > 0.60)
+            {
+                return helpterSwitch ? "You should stand" : "You should hit";
+            }
+            else if((player.HandValue == 16 || player.HandValue == 17 || player.HandValue == 18 || player.HandValue == 19) && (probabilityPlayer.Twenty + probabilityPlayer.Twentyone) > (probabilityDealer.Twenty + probabilityDealer.Twentyone))
+            {
+                return helpterSwitch ? "You should hit" : "You should stand";
+            }
+            else if(player.HandValue == 18 && (probabilityDealer.OverTwentyone + probabilityDealer.Seventeen) > (probabilityDealer.Ninteen + probabilityDealer.Twenty + probabilityDealer.OverTwentyone))
+            {
+                return helpterSwitch ? "You should stand" : "You should hit";
+            }
+            else if (player.HandValue == 18 && (probabilityDealer.OverTwentyone + probabilityDealer.Seventeen) < (probabilityDealer.Ninteen + probabilityDealer.Twenty + probabilityDealer.OverTwentyone))
+            {
+                return helpterSwitch ? "You should hit" : "You should stand";
+            }          
+            else if (player.HandValue == 19 && (probabilityDealer.OverTwentyone + probabilityDealer.Seventeen + probabilityDealer.Eighteen) > (probabilityDealer.Twenty + probabilityDealer.OverTwentyone))
+            {
+                return helpterSwitch ? "You should stand" : "You should hit";
+            }
+            else if (player.HandValue == 19 && (probabilityDealer.OverTwentyone + probabilityDealer.Seventeen + probabilityDealer.Eighteen) < (probabilityDealer.Twenty + probabilityDealer.OverTwentyone))
+            {
+                return helpterSwitch ? "You should hit" : "You should stand";
+            }
+            else{
+                return "I tihnk you should hit but my data aint sure";
             }
         }
 
@@ -147,7 +161,7 @@ namespace BlackJack_TDD
 
             foreach (var card in porabibltyofDrawCard.Where(x => x.Score < scoreTo17))
             {
-                probability = CalculatePobabilitiUnder16(card, porabibltyofDrawCard, scoreTo17, card.Probability);
+                probability = CalculatePobabilitiUnder17(card, porabibltyofDrawCard, scoreTo17, card.Probability);
                 probabilityToGet17 += probability.Seventeen;
                 probabilityToGet18 += probability.Eighteen;
                 probabilityToGet19 += probability.Ninteen;
@@ -168,7 +182,7 @@ namespace BlackJack_TDD
             };
         }
 
-        private Probability CalculatePobabilitiUnder16(CardPorbability card, List<CardPorbability> cardProbability, int scoreto17, double probability)
+        private Probability CalculatePobabilitiUnder17(CardPorbability card, List<CardPorbability> cardProbability, int scoreto17, double probability)
         {
             Probability probabilityRetrun = null;
 
@@ -212,7 +226,7 @@ namespace BlackJack_TDD
                 probabilityUnder17 = 0;
                 foreach (var card1 in cardProbability.Where(x => x.Score < scoreTo17))
                 {
-                    probabilityRetrun = CalculatePobabilitiUnder16(card1, cardProbability, scoreto17, probability * card1.Probability);
+                    probabilityRetrun = CalculatePobabilitiUnder17(card1, cardProbability, scoreto17, probability * card1.Probability);
                     probabilityToGet17 += probabilityRetrun.Seventeen;
                     probabilityToGet18 += probabilityRetrun.Eighteen;
                     probabilityToGet19 += probabilityRetrun.Ninteen;

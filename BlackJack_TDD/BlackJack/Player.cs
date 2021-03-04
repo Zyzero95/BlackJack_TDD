@@ -24,6 +24,9 @@ namespace BlackJack_TDD
         /// </summary>
         public int HandValue;
 
+        /// <summary>
+        /// value of teh cards in the split hand
+        /// </summary>
         public int SplitHandValue;
 
         /// <summary>
@@ -31,8 +34,12 @@ namespace BlackJack_TDD
         /// </summary>
         public List<Card> Splithand = new List<Card>();
 
+        /// <summary>
+        /// bool to knoew if it is the split hand or normal hand that is palying
+        /// </summary>
         public bool SplithandIsplaying { get; set; }
 
+        //the card deck from core
         private CardsHandler cardDeck;
 
         /// <summary>

@@ -12,6 +12,9 @@ namespace BlackJack_TDD.BlackJack
 
         public Dealer(CardsHandler deck) => CardDeck = deck;
 
+        /// <summary>
+        /// clear al lteh palyer of cards and giv out new cards.
+        /// </summary>
         public void StartOfRound()
         {
             foreach (var player in Core.Players)
@@ -36,6 +39,9 @@ namespace BlackJack_TDD.BlackJack
             CalculateHand();
         }
 
+        /// <summary>
+        /// dealer Draws Card until the value of teh cars if 17 or over
+        /// </summary>
         public void Turn()
         {
             var draw = true;
@@ -54,6 +60,9 @@ namespace BlackJack_TDD.BlackJack
             }
         }
 
+        /// <summary>
+        /// calculate teh value of the cards in the dealer's hand
+        /// </summary>
         private void CalculateHand()
         {
             HandValue = 0;

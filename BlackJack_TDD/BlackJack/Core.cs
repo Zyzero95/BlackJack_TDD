@@ -13,6 +13,9 @@ namespace BlackJack_TDD.BlackJack
         public static CardsHandler CardDeck { get; set; }
         public static Dealer Dealer { get; set; }
 
+        /// <summary>
+        /// Where evrything is run from
+        /// </summary>
         public static void Game()
         {
             var input = new Main.ConsoleInput();
@@ -98,6 +101,11 @@ namespace BlackJack_TDD.BlackJack
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="player"></param>
         private static void PlayerSlipHand(Main.ConsoleInput input, Player player)
         {
             player.SplithandIsplaying = true;
