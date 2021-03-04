@@ -26,7 +26,8 @@ namespace BlackJack_TDD.BlackJack
                 Tutoring.StartOfRound = true;
                 var i = 0;
                 foreach (var player in Players)
-                { i++;
+                {
+                    i++;
                     Console.WriteLine($"plyer {i}:\n");
                     var vailidbet = false;
                     while (!vailidbet)
@@ -112,7 +113,7 @@ namespace BlackJack_TDD.BlackJack
                 }
                 if (player.CheatOn)
                 {
-                    player.Tutoring.Cheat();
+                    Console.WriteLine(player.Tutoring.Cheat());
                 }
                 player.Turn(input.GetInput("what is your next move?"));
 
@@ -135,7 +136,7 @@ namespace BlackJack_TDD.BlackJack
                 }
                 if (player.CheatOn)
                 {
-                    player.Tutoring.Cheat();
+                    Console.WriteLine(player.Tutoring.Cheat());
                 }
                 player.Turn(input.GetInput("what is your next move?"));
 
@@ -162,7 +163,8 @@ namespace BlackJack_TDD.BlackJack
                         Console.WriteLine("won");
                         player.Saldo += player.Bet * 2;
                     }
-                    else if (player.HandValue < 21 && player.HandValue == Dealer.HandValue){
+                    else if (player.HandValue < 21 && player.HandValue == Dealer.HandValue)
+                    {
                         Console.WriteLine("Push");
                         player.Saldo += player.Bet;
                     }

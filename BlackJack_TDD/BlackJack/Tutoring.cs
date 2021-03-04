@@ -7,11 +7,12 @@ namespace BlackJack_TDD
 {
     public class Tutoring
     {
-        private static bool startOfRound;
+
         public static bool StartOfRound
         {
             get { return startOfRound; }
-            set {
+            set
+            {
                 startOfRound = value;
                 if (value)
                 {
@@ -19,9 +20,12 @@ namespace BlackJack_TDD
                 }
             }
         }
-        private Player player;
 
+        private static bool startOfRound;
         private static List<Card> DeckOfCard = Core.CardDeck.cards;
+        public bool helpterSwitch;
+
+        private Player player;
 
         public Tutoring(Player player)
         {
@@ -32,6 +36,7 @@ namespace BlackJack_TDD
         {
             DeckOfCard.Remove(card);
         }
+
         internal static void ClearCard()
         {
             DeckOfCard = Core.CardDeck.cards;
@@ -56,29 +61,35 @@ namespace BlackJack_TDD
             }
         }
 
-        public void Cheat()
+
+        public string Cheat()
         {
             int untilBlackJack;
-            if (player.HandValue < 10)
+            if (player.HandValue < 15)
             {
-                Console.WriteLine("You should hit");
+                return "You should hit";
             }
             else
             {
                 untilBlackJack = 21 - player.HandValue;
-                if (Core.Dealer.HandValue > 16 && player.HandValue <Core.Dealer.HandValue)
-                {
-                    Console.WriteLine("You should hit");
-                }
                 var listOfVaildDraws = DeckOfCard.Where(x => x.Score <= untilBlackJack).ToList();
-                if (listOfVaildDraws.Count >= DeckOfCard.Count/2)
+                if (Core.Dealer.HandValue > 16 && player.HandValue < Core.Dealer.HandValue)
                 {
-                    Console.WriteLine("You should hit");
+                    return "You should hit";
+                }
+                else if (player.HandValue >= 20)
+                {
+                    return "You should stand";
+                }
+                else if (listOfVaildDraws.Count >= DeckOfCard.Count / 2)
+                {
+                    return helpterSwitch ? "You should hit" : "You should stand";
                 }
                 else
                 {
-                    Console.WriteLine("You should stand");
+                    return !helpterSwitch ? "You should hit" : "You should stand";
                 }
+
             }
         }
     }

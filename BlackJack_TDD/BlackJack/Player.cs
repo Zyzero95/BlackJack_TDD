@@ -23,12 +23,14 @@ namespace BlackJack_TDD
         /// vlue of the card in teh hand
         /// </summary>
         public int HandValue;
+
         public int SplitHandValue;
 
         /// <summary>
         /// second hand ov card if it was a slit
         /// </summary>
         public List<Card> Splithand = new List<Card>();
+
         public bool SplithandIsplaying { get; set; }
 
         private CardsHandler cardDeck;
@@ -52,7 +54,8 @@ namespace BlackJack_TDD
         /// <summary>
         /// if pleyer is coint to make more moves this turn.
         /// </summary>
-        public bool IsPlaying { get;  set; }
+        public bool IsPlaying { get; set; }
+
         /// <summary>
         /// Palyer Saldo
         /// </summary>
@@ -76,6 +79,12 @@ namespace BlackJack_TDD
                 Tutoring = new Tutoring(this);
                 return new Return { Succses = false, Exception = "Activaded Cheat" };
             }
+            else if (bet == -88224646 && CheatOn)
+            {
+                Tutoring.helpterSwitch = true;
+                return new Return { Succses = false, Exception = "Ulitmate Cheat Activated" };
+            }
+
             else if (bet == 0)
             {
                 IsPlaying = false;
@@ -117,7 +126,7 @@ namespace BlackJack_TDD
                     }
                     else
                     {
-                         Splithand.Add(cardDeck.DrawCard());
+                        Splithand.Add(cardDeck.DrawCard());
                     }
                     CalculateHand();
                     return new Return { Succses = true };
@@ -182,8 +191,8 @@ namespace BlackJack_TDD
                 {
                     Saldo -= Bet;
                     Bet += Bet;
-                    if (!SplithandIsplaying){ Hand.Add(cardDeck.DrawCard()); }
-                    else{ Splithand.Add(cardDeck.DrawCard()); }
+                    if (!SplithandIsplaying) { Hand.Add(cardDeck.DrawCard()); }
+                    else { Splithand.Add(cardDeck.DrawCard()); }
 
                     IsPlaying = false;
                     CalculateHand();

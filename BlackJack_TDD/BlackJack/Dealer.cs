@@ -29,7 +29,7 @@ namespace BlackJack_TDD.BlackJack
                 }
                 Hand.Add(CardDeck.DrawCard());
             }
-            foreach (var  player in Core.Players)
+            foreach (var player in Core.Players)
             {
                 player.CalculateHand();
             }
