@@ -60,6 +60,7 @@ namespace BlackJack_TDD.BlackJack
                             PlayerSlipHand(input, player);
                         }
                     }
+                    Console.WriteLine("Dealers hand");
                     foreach (var card in Dealer.Hand)
                     {
                         design.Design(card);
