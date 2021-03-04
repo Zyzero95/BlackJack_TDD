@@ -71,9 +71,11 @@ namespace BlackJack_TDD.BlackJack
                         design.Design(card);
                     }
                 }
-                Dealer.Turn();
 
                 //EndPhase
+                Tutoring.RemoveOneCard(Dealer.Hand[1]);
+                Dealer.Turn();
+
                 Calculatewin();
             }
         }
