@@ -27,12 +27,16 @@ namespace BlackJack_TDD
                 {
                     foreach (Card.CardValue value in (Card.CardValue[])Enum.GetValues(typeof(Card.CardValue)))
                     {
-                        var newCard = new Card
+                        if (value != CardValue.YellowCard)
                         {
-                            Suit = suit,
-                            Value = value
-                        };
-                        cards.Add(newCard);
+
+                            var newCard = new Card
+                            {
+                                Suit = suit,
+                                Value = value
+                            };
+                            cards.Add(newCard);
+                        }
                     }
                 }
             }
@@ -56,6 +60,7 @@ namespace BlackJack_TDD
         {
             var arrayOfCards = cards.ToArray();
             var r = new Random();
+            var yellow = r.Next(10, 26);
 
             for (var i = arrayOfCards.Length - 1; i > 0; i--)
             {
@@ -67,6 +72,10 @@ namespace BlackJack_TDD
             }
             for (var j = 0; j < arrayOfCards.Length; j++)
             {
+                if(j == yellow)
+                {
+                    cardDeck.Push(new Card { Value = CardValue.YellowCard });
+                }
                 cardDeck.Push(arrayOfCards[j]);
             }
         }
