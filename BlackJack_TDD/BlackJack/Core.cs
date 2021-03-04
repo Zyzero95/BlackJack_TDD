@@ -13,7 +13,6 @@ namespace BlackJack_TDD.BlackJack
         public static CardsHandler CardDeck { get; set; }
         public static Dealer Dealer { get; set; }
 
-
         public static void Game()
         {
             var input = new Main.ConsoleInput();

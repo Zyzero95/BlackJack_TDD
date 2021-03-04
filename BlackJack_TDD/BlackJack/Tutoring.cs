@@ -1,5 +1,4 @@
 ﻿using BlackJack_TDD.BlackJack;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +6,9 @@ namespace BlackJack_TDD
 {
     public class Tutoring
     {
-
+        /// <summary>
+        /// when set to true the clear will run for bot
+        /// </summary>
         public static bool StartOfRound
         {
             get { return startOfRound; }
@@ -20,12 +21,12 @@ namespace BlackJack_TDD
                 }
             }
         }
+
         private static bool startOfRound;
         private static List<Card> DeckOfCard = Core.CardDeck.cards;
         public bool helpterSwitch;
 
         private Player player;
-        private Dealer Dealer = Core.Dealer;
 
         public Tutoring(Player player)
         {
@@ -58,7 +59,10 @@ namespace BlackJack_TDD
             }
         }
 
-
+        /// <summary>
+        /// Caclutet the porbability of to get all values bewtween 17 and 21 and then sugest what to do
+        /// </summary>
+        /// <returns>string of what you should do</returns>
         public string Cheat()
         {
             var probabilityDealer = CalculatePobabilitiy((int)Core.Dealer.Hand[0].Value);
@@ -89,7 +93,6 @@ namespace BlackJack_TDD
                 {
                     return !helpterSwitch ? "You should hit" : "You should stand";
                 }
-
             }
         }
 
@@ -107,7 +110,6 @@ namespace BlackJack_TDD
                 }
             }
 
-
             var scoreTo17 = 17 - HandScore;
             double probabilityUnder17 = 0;
             double probabilityToGet17 = 0;
@@ -122,30 +124,30 @@ namespace BlackJack_TDD
             {
                 probabilityToGet17 += card.Probability;
             }
-            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 +1 ))
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 + 1))
             {
                 probabilityToGet18 += card.Probability;
             }
-            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 +2))
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 + 2))
             {
                 probabilityToGet19 += card.Probability;
             }
-            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 +3))
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 + 3))
             {
                 probabilityToGet20 += card.Probability;
             }
-            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 +4))
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 + 4))
             {
                 probabilityToGet21 += card.Probability;
             }
-            foreach (var card in porabibltyofDrawCard.Where(x => x.Score > scoreTo17 +4))
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score > scoreTo17 + 4))
             {
                 probabilityOver21 += card.Probability;
             }
 
             foreach (var card in porabibltyofDrawCard.Where(x => x.Score < scoreTo17))
             {
-                probability = CalculatePobabilitiUnder16(card, porabibltyofDrawCard, scoreTo17 , card.Probability);
+                probability = CalculatePobabilitiUnder16(card, porabibltyofDrawCard, scoreTo17, card.Probability);
                 probabilityToGet17 += probability.Seventeen;
                 probabilityToGet18 += probability.Eighteen;
                 probabilityToGet19 += probability.Ninteen;
@@ -205,12 +207,12 @@ namespace BlackJack_TDD
             }
             //under 16
             probabilityUnder17 = probability - probabilityToGet17 - probabilityToGet18 - probabilityToGet19 - probabilityToGet20 - probabilityToGet21 - probabilityOver21;
-            if (probabilityUnder17 > 0.0001)
+            if (probabilityUnder17 > 0.000001)
             {
                 probabilityUnder17 = 0;
                 foreach (var card1 in cardProbability.Where(x => x.Score < scoreTo17))
                 {
-                    probabilityRetrun = CalculatePobabilitiUnder16(card1, cardProbability, scoreto17 , probability * card1.Probability);
+                    probabilityRetrun = CalculatePobabilitiUnder16(card1, cardProbability, scoreto17, probability * card1.Probability);
                     probabilityToGet17 += probabilityRetrun.Seventeen;
                     probabilityToGet18 += probabilityRetrun.Eighteen;
                     probabilityToGet19 += probabilityRetrun.Ninteen;
@@ -252,10 +254,5 @@ namespace BlackJack_TDD
         public double Twenty { get; set; }
         public double Twentyone { get; set; }
         public double OverTwentyone { get; set; }
-        public override string ToString()
-        {
-            return $"UnderSeventeen={UnderSeventeen} Seventeen={Seventeen} Eighteen={Eighteen} Ninteen={Ninteen} Twenty={Twenty} Twentyone={Twentyone} OverTwentyone={OverTwentyone}";
-        }
     }
-
 }
