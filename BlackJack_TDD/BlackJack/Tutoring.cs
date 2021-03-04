@@ -61,7 +61,8 @@ namespace BlackJack_TDD
 
         public string Cheat()
         {
-            var porbility = CalculatePobabilitiy();
+            var probabilityDealer = CalculatePobabilitiy((int)Core.Dealer.Hand[0].Value);
+            var probabilityPlayer = CalculatePobabilitiy(player.HandValue);
 
             int untilBlackJack;
             if (player.HandValue < 15)
@@ -92,10 +93,9 @@ namespace BlackJack_TDD
             }
         }
 
-        private Pobability CalculatePobabilitiy()
+        private Probability CalculatePobabilitiy(int HandScore)
         {
             var porabibltyofDrawCard = new List<CardPorbability>();
-            var dealerCurrentScore = Core.Dealer.Hand[0].Score == 1 ? 11 : Core.Dealer.Hand[0].Score;
             var alreadyCalculatedValues = new List<Card>();
             foreach (var card in DeckOfCard)
             {
@@ -106,93 +106,128 @@ namespace BlackJack_TDD
                     porabibltyofDrawCard.Add(new CardPorbability { Probability = (double)allCardsWithSameValue.Count / (double)DeckOfCard.Count, Score = card.Score });
                 }
             }
-            var DealerTo16 = 16 - dealerCurrentScore;
-            var DealerTo18 = 18 - dealerCurrentScore;
-            var DealerTo21 = 21 - dealerCurrentScore;
-            double probailityDealerDrawCardUnder16 = 0;
-            double probailityDealerGetbetween16And18 = 0;
-            double probailityDealerGetbetween18And21 = 0;
-            double probailityDealerDrawCardOver21 = 0;
-            Pobability under16 = null;
+
+
+            var scoreTo17 = 17 - HandScore;
+            double probabilityUnder17 = 0;
+            double probabilityToGet17 = 0;
+            double probabilityToGet18 = 0;
+            double probabilityToGet19 = 0;
+            double probabilityToGet20 = 0;
+            double probabilityToGet21 = 0;
+            double probabilityOver21 = 0;
+            Probability probability = null;
             //Poability dealer get bewtween 16 and 18
-            foreach (var card in porabibltyofDrawCard.Where(x => x.Score > DealerTo16 && x.Score <= DealerTo18))
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17))
             {
-                probailityDealerGetbetween16And18 += card.Probability;
+                probabilityToGet17 += card.Probability;
             }
-            //Poability dealer get bewtween 18 and 21
-            foreach (var card in porabibltyofDrawCard.Where(x => x.Score > DealerTo18 && x.Score <= DealerTo21))
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 +1 ))
             {
-                probailityDealerGetbetween18And21 += card.Probability;
+                probabilityToGet18 += card.Probability;
             }
-            //Poability dealer get over 21
-            foreach (var card in porabibltyofDrawCard.Where(x => x.Score > DealerTo21))
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 +2))
             {
-                probailityDealerDrawCardOver21 += card.Probability;
+                probabilityToGet19 += card.Probability;
             }
-            foreach (var card in porabibltyofDrawCard.Where(x => x.Score <= DealerTo16))
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 +3))
             {
-                under16 = CalculatePobabilitiUnder16(card, porabibltyofDrawCard, DealerTo16, card.Probability);
-                probailityDealerGetbetween16And18 += under16.Between16And18;
-                probailityDealerGetbetween18And21 += under16.Between18And21;
-                probailityDealerDrawCardOver21 += under16.Over21;
+                probabilityToGet20 += card.Probability;
+            }
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score == scoreTo17 +4))
+            {
+                probabilityToGet21 += card.Probability;
+            }
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score > scoreTo17 +4))
+            {
+                probabilityOver21 += card.Probability;
             }
 
-            return new Pobability
+            foreach (var card in porabibltyofDrawCard.Where(x => x.Score < scoreTo17))
             {
-                Under16 = probailityDealerDrawCardUnder16,
-                Between16And18 = probailityDealerGetbetween16And18,
-                Between18And21 = probailityDealerGetbetween18And21,
-                Over21 = probailityDealerDrawCardOver21
+                probability = CalculatePobabilitiUnder16(card, porabibltyofDrawCard, scoreTo17 , card.Probability);
+                probabilityToGet17 += probability.Seventeen;
+                probabilityToGet18 += probability.Eighteen;
+                probabilityToGet19 += probability.Ninteen;
+                probabilityToGet20 += probability.Twenty;
+                probabilityToGet21 += probability.Twentyone;
+                probabilityOver21 += probability.OverTwentyone;
+            }
+            probabilityUnder17 = 1 - probabilityToGet17 - probabilityToGet18 - probabilityToGet19 - probabilityToGet20 - probabilityToGet21 - probabilityOver21;
+            return new Probability
+            {
+                UnderSeventeen = probabilityUnder17,
+                Seventeen = probabilityToGet17,
+                Eighteen = probabilityToGet18,
+                Ninteen = probabilityToGet19,
+                Twenty = probabilityToGet20,
+                Twentyone = probabilityToGet21,
+                OverTwentyone = probabilityOver21
             };
         }
 
-        private Pobability CalculatePobabilitiUnder16(CardPorbability card, List<CardPorbability> cardPorbabilities,int dealerTo16, double porbability)
+        private Probability CalculatePobabilitiUnder16(CardPorbability card, List<CardPorbability> cardProbability, int scoreto17, double probability)
         {
-            dealerTo16 -= card.Score;
-            var dealerTo18 = dealerTo16 + 2;
-            var dealerTo21 = dealerTo16 + 5;
-            Pobability under16 = null;
+            Probability probabilityRetrun = null;
 
-            double probailityDealerGetbetween16And18 = 0;
-            double probailityDealerGetbetween18And21 = 0;
-            double probailityDealerDrawCardOver21 = 0;
-
-            //Poability dealer get bewtween 16 and 18 third card
-            foreach (var card1 in cardPorbabilities.Where(x => x.Score > dealerTo16 && x.Score <= dealerTo18))
+            var scoreTo17 = scoreto17 - card.Score;
+            double probabilityUnder17 = 0;
+            double probabilityToGet17 = 0;
+            double probabilityToGet18 = 0;
+            double probabilityToGet19 = 0;
+            double probabilityToGet20 = 0;
+            double probabilityToGet21 = 0;
+            double probabilityOver21 = 0;
+            //Poability dealer get bewtween 16 and 18
+            foreach (var card1 in cardProbability.Where(x => x.Score == scoreTo17))
             {
-                probailityDealerGetbetween16And18 += card1.Probability * porbability;
+                probabilityToGet17 += card1.Probability * probability;
             }
-            
-            //Poability dealer get bewtween 18 and 21 third card
-            foreach (var card1 in cardPorbabilities.Where(x => x.Score > dealerTo18 && x.Score <= dealerTo21))
+            foreach (var card1 in cardProbability.Where(x => x.Score == scoreTo17 + 1))
             {
-                probailityDealerGetbetween18And21 += card1.Probability * porbability;
+                probabilityToGet18 += card1.Probability * probability;
             }
-            
-            //Poability dealer get over 21 third card
-            foreach (var card1 in cardPorbabilities.Where(x => x.Score > dealerTo21))
+            foreach (var card1 in cardProbability.Where(x => x.Score == scoreTo17 + 2))
             {
-                probailityDealerDrawCardOver21 += card1.Probability * porbability;
+                probabilityToGet19 += card1.Probability * probability;
+            }
+            foreach (var card1 in cardProbability.Where(x => x.Score == scoreTo17 + 3))
+            {
+                probabilityToGet20 += card1.Probability * probability;
+            }
+            foreach (var card1 in cardProbability.Where(x => x.Score == scoreTo17 + 4))
+            {
+                probabilityToGet21 += card1.Probability * probability;
+            }
+            foreach (var card1 in cardProbability.Where(x => x.Score > scoreTo17 + 4))
+            {
+                probabilityOver21 += card1.Probability * probability;
             }
             //under 16
-            var probailityDealerDrawCardUnder16 = porbability - probailityDealerGetbetween16And18 - probailityDealerGetbetween18And21 - probailityDealerDrawCardOver21;
-            if (probailityDealerDrawCardUnder16 > 0.001)
+            probabilityUnder17 = probability - probabilityToGet17 - probabilityToGet18 - probabilityToGet19 - probabilityToGet20 - probabilityToGet21 - probabilityOver21;
+            if (probabilityUnder17 > 0.0001)
             {
-                probailityDealerDrawCardUnder16 = 0;
-                foreach (var card1 in cardPorbabilities.Where(x => x.Score <= dealerTo16))
+                probabilityUnder17 = 0;
+                foreach (var card1 in cardProbability.Where(x => x.Score < scoreTo17))
                 {
-                    under16 = CalculatePobabilitiUnder16(card1, cardPorbabilities, dealerTo16, porbability * card1.Probability);
-                    probailityDealerGetbetween16And18 += under16.Between16And18;
-                    probailityDealerGetbetween18And21 += under16.Between18And21;
-                    probailityDealerDrawCardOver21 += under16.Over21;
+                    probabilityRetrun = CalculatePobabilitiUnder16(card1, cardProbability, scoreto17 , probability * card1.Probability);
+                    probabilityToGet17 += probabilityRetrun.Seventeen;
+                    probabilityToGet18 += probabilityRetrun.Eighteen;
+                    probabilityToGet19 += probabilityRetrun.Ninteen;
+                    probabilityToGet20 += probabilityRetrun.Twenty;
+                    probabilityToGet21 += probabilityRetrun.Twentyone;
+                    probabilityOver21 += probabilityRetrun.OverTwentyone;
                 }
             }
-            return new Pobability
+            return new Probability
             {
-                Under16 = probailityDealerDrawCardUnder16,
-                Between16And18 = probailityDealerGetbetween16And18,
-                Between18And21 = probailityDealerGetbetween18And21,
-                Over21 = probailityDealerDrawCardOver21
+                UnderSeventeen = probabilityUnder17,
+                Seventeen = probabilityToGet17,
+                Eighteen = probabilityToGet18,
+                Ninteen = probabilityToGet19,
+                Twenty = probabilityToGet20,
+                Twentyone = probabilityToGet21,
+                OverTwentyone = probabilityOver21
             };
         }
     }
@@ -204,19 +239,22 @@ namespace BlackJack_TDD
 
         public override string ToString()
         {
-            return $"Score={Score} Probability={Probability}";
+            return $"Score={Score} probability={Probability}";
         }
     }
 
-    internal class Pobability
+    internal class Probability
     {
-        public double Under16 { get; set; }
-        public double Between16And18 { get; set; }
-        public double Between18And21 { get; set; }
-        public double Over21 { get; set; }
+        public double UnderSeventeen { get; set; }
+        public double Seventeen { get; set; }
+        public double Eighteen { get; set; }
+        public double Ninteen { get; set; }
+        public double Twenty { get; set; }
+        public double Twentyone { get; set; }
+        public double OverTwentyone { get; set; }
         public override string ToString()
         {
-            return $"Under16= {Under16} Between16And18={Between16And18} Between18And21={Between18And21} Over21 = {Over21}";
+            return $"UnderSeventeen={UnderSeventeen} Seventeen={Seventeen} Eighteen={Eighteen} Ninteen={Ninteen} Twenty={Twenty} Twentyone={Twentyone} OverTwentyone={OverTwentyone}";
         }
     }
 
