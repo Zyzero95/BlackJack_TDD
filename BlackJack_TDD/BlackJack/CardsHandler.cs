@@ -7,6 +7,7 @@ namespace BlackJack_TDD
 {
     public class CardsHandler : Card
     {
+        public static int NumberOfdecks = 2;
         public Stack<Card> SetOfCards = new Stack<Card>();
         public List<Card> cards = new List<Card>();
 
@@ -19,16 +20,20 @@ namespace BlackJack_TDD
         //Creates a deck of cards.
         private void CreateDeck()
         {
-            foreach (Card.CardSuit suit in (Card.CardSuit[])Enum.GetValues(typeof(Card.CardSuit)))
+            for (int i = 0; i < NumberOfdecks; i++)
             {
-                foreach (Card.CardValue value in (Card.CardValue[])Enum.GetValues(typeof(Card.CardValue)))
+
+                foreach (Card.CardSuit suit in (Card.CardSuit[])Enum.GetValues(typeof(Card.CardSuit)))
                 {
-                    var newCard = new Card
+                    foreach (Card.CardValue value in (Card.CardValue[])Enum.GetValues(typeof(Card.CardValue)))
                     {
-                        Suit = suit,
-                        Value = value
-                    };
-                    cards.Add(newCard);
+                        var newCard = new Card
+                        {
+                            Suit = suit,
+                            Value = value
+                        };
+                        cards.Add(newCard);
+                    }
                 }
             }
         }
