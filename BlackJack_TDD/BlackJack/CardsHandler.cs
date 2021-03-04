@@ -22,7 +22,6 @@ namespace BlackJack_TDD
         {
             for (int i = 0; i < NumberOfdecks; i++)
             {
-
                 foreach (Card.CardSuit suit in (Card.CardSuit[])Enum.GetValues(typeof(Card.CardSuit)))
                 {
                     foreach (Card.CardValue value in (Card.CardValue[])Enum.GetValues(typeof(Card.CardValue)))

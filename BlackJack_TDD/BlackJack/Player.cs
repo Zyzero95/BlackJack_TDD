@@ -84,7 +84,6 @@ namespace BlackJack_TDD
                 Tutoring.helpterSwitch = true;
                 return new Return { Succses = false, Exception = "Ulitmate Cheat Activated" };
             }
-
             else if (bet == 0)
             {
                 IsPlaying = false;
