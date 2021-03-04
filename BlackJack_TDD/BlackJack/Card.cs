@@ -28,6 +28,7 @@ namespace BlackJack_TDD.BlackJack
             Queen = 12,
             King = 13
         }
+        public bool isVisible { get;set; } = true;
 
         public CardSuit Suit { get; set; }
         public CardValue Value { get; set; }

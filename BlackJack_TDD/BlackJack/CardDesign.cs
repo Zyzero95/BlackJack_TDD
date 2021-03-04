@@ -25,18 +25,36 @@ namespace BlackJack_TDD.BlackJack
             {
                 suit = "♠";
             }
-            Console.WriteLine(@"┌─────┐");
-            Console.WriteLine(@"│{0}│", card.Value.ToString().PadLeft(5));
-            Console.WriteLine(@"│{0}    │", suit);
-            Console.WriteLine(@"│{0}│", card.Value.ToString().PadLeft(5));
-            Console.WriteLine(@"└─────┘");
-            Console.WriteLine();
+            if(card.isVisible == false)
+            {
+                Console.WriteLine(@"┌─────┐");
+                Console.WriteLine(@"│Face │");
+                Console.WriteLine(@"│Down │");
+                Console.WriteLine(@"│     │");
+                Console.WriteLine(@"└─────┘");
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine(@"┌─────┐");
+                Console.WriteLine(@"│{0}│", card.Value.ToString().PadLeft(5));
+                Console.WriteLine(@"│{0}    │", suit);
+                Console.WriteLine(@"│{0}│", card.Value.ToString().PadLeft(5));
+                Console.WriteLine(@"└─────┘");
+                Console.WriteLine();
+            }
         }
 
         public void FlipCard(Card card)
         {
-            var flipCard = new Card();
-            flipCard = card;
+            if(card.isVisible == false)
+            {
+                card.isVisible = true;
+            }
+            else
+            {
+                card.isVisible = false;
+            }
         }
     }
 }

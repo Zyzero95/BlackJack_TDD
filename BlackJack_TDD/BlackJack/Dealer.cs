@@ -36,6 +36,7 @@ namespace BlackJack_TDD.BlackJack
             {
                 player.CalculateHand();
             }
+            Hand[1].isVisible = false;
             CalculateHand();
         }
 
