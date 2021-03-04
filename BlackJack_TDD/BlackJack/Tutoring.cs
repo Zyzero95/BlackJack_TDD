@@ -6,6 +6,9 @@ namespace BlackJack_TDD
 {
     public class Tutoring
     {
+        /// <summary>
+        /// when set to true the clear will run for bot
+        /// </summary>
         public static bool StartOfRound
         {
             get { return startOfRound; }
@@ -56,6 +59,10 @@ namespace BlackJack_TDD
             }
         }
 
+        /// <summary>
+        /// Caclutet the porbability of to get all values bewtween 17 and 21 and then sugest what to do
+        /// </summary>
+        /// <returns>string of what you should do</returns>
         public string Cheat()
         {
             var probabilityDealer = CalculatePobabilitiy((int)Core.Dealer.Hand[0].Value);
