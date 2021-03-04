@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlackJack_TDD.Main;
+using System;
 using System.Collections.Generic;
 
 namespace BlackJack_TDD.BlackJack
@@ -25,8 +26,6 @@ namespace BlackJack_TDD.BlackJack
             while (true)
             {
                 //starting Phase
-                Dealer.StartOfRound();
-                Tutoring.StartOfRound = true;
                 var i = 0;
                 foreach (var player in Players)
                 {
@@ -50,9 +49,14 @@ namespace BlackJack_TDD.BlackJack
                             Console.WriteLine("bet wasn't an number");
                         }
                     }
+                    Console.WriteLine("\n\n");
                 }
+                Dealer.StartOfRound();
+                Tutoring.StartOfRound = true;
+                DrawTable.DrawGameTabel();
+                
                 //GamePhase
-                Console.Clear();
+                DrawTable.DrawGameTabel();
                 foreach (var player in Players)
                 {
                     if (player.IsPlaying)
@@ -113,15 +117,7 @@ namespace BlackJack_TDD.BlackJack
             player.IsPlaying = true;
             while (player.IsPlaying)
             {
-                foreach (var card in Dealer.Hand)
-                {
-                    design.Design(card);
-                }
-                Console.WriteLine("Your card");
-                foreach (var card in player.Splithand)
-                {
-                    design.Design(card);
-                }
+                DrawTable.DrawGameTabel();
                 if (player.CheatOn)
                 {
                     Console.WriteLine(player.Tutoring.Cheat());
@@ -136,15 +132,7 @@ namespace BlackJack_TDD.BlackJack
         {
             while (player.IsPlaying)
             {
-                foreach (var card in Dealer.Hand)
-                {
-                    design.Design(card);
-                }
-                Console.WriteLine("Your card");
-                foreach (var card in player.Hand)
-                {
-                    design.Design(card);
-                }
+                DrawTable.DrawGameTabel();
                 if (player.CheatOn)
                 {
                     Console.WriteLine(player.Tutoring.Cheat());

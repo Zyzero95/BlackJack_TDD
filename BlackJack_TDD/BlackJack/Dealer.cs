@@ -28,7 +28,10 @@ namespace BlackJack_TDD.BlackJack
             {
                 foreach (var player in Core.Players)
                 {
-                    player.Hand.Add(CardDeck.DrawCard());
+                    if (player.IsPlaying)
+                    {
+                        player.Hand.Add(CardDeck.DrawCard());
+                    }
                 }
                 Hand.Add(CardDeck.DrawCard());
             }
