@@ -39,6 +39,11 @@ namespace BlackJack_TDD
         /// </summary>
         public bool SplithandIsplaying { get; set; }
 
+        /// <summary>
+        /// Should be true when its the players turn
+        /// </summary>
+        public bool Isturn { get; set; }
+
         //the card deck from core
         private CardsHandler cardDeck;
 

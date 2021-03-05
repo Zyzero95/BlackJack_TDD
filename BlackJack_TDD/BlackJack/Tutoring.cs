@@ -21,11 +21,13 @@ namespace BlackJack_TDD
                 }
             }
         }
-
-        private static bool startOfRound;
-        private static List<Card> DeckOfCard = Core.CardDeck.cards;
+        /// <summary>
+        /// if it is true help or not
+        /// </summary>
         public bool helpterSwitch;
 
+        private static bool startOfRound;
+        private static List<Card> DeckOfCard = new List<Card>(Core.CardDeck.cards);
         private Player player;
 
         public Tutoring(Player player)
@@ -33,16 +35,26 @@ namespace BlackJack_TDD
             this.player = player;
         }
 
+        /// <summary>
+        /// Remove one card fron the local deck
+        /// </summary>
+        /// <param name="card">card that have been drawn</param>
         internal static void RemoveOneCard(Card card)
         {
             DeckOfCard.Remove(card);
         }
 
+        /// <summary>
+        /// reset the local crad deck
+        /// </summary>
         internal static void ClearCard()
         {
-            DeckOfCard = Core.CardDeck.cards;
+            DeckOfCard = new List<Card>(Core.CardDeck.cards);
         }
 
+        /// <summary>
+        /// removes multiple cards, should be run on start of evry round
+        /// </summary>
         private static void RemoveCards()
         {
             foreach (var player in Core.Players)
@@ -110,6 +122,11 @@ namespace BlackJack_TDD
             }
         }
 
+        /// <summary>
+        /// Calculate the porbabilty of draw diffrent cards
+        /// </summary>
+        /// <param name="HandScore">known score of hand/param>
+        /// <returns>obj with all probabilitys for drawing to a spicifikit value nomether how many round it takes</returns>
         private Probability CalculatePobabilitiy(int HandScore)
         {
             var porabibltyofDrawCard = new List<CardPorbability>();
@@ -182,6 +199,14 @@ namespace BlackJack_TDD
             };
         }
 
+        /// <summary>
+        /// Caclute the porbability to get an value if you already draw one card
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="cardProbability"></param>
+        /// <param name="scoreto17"></param>
+        /// <param name="probability"></param>
+        /// <returns></returns>
         private Probability CalculatePobabilitiUnder17(CardPorbability card, List<CardPorbability> cardProbability, int scoreto17, double probability)
         {
             Probability probabilityRetrun = null;

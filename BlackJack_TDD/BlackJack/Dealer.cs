@@ -13,7 +13,7 @@ namespace BlackJack_TDD.BlackJack
         public Dealer(CardsHandler deck) => CardDeck = deck;
 
         /// <summary>
-        /// clear al lteh palyer of cards and giv out new cards.
+        /// clear all the palyer of cards and give out new cards.
         /// </summary>
         public void StartOfRound()
         {

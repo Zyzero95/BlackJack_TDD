@@ -61,21 +61,13 @@ namespace BlackJack_TDD.BlackJack
                 {
                     if (player.IsPlaying)
                     {
+                        player.Isturn = true;
                         PlayerHand(input, player);
                         if (player.Splithand.Count > 0)
                         {
                             PlayerSlipHand(input, player);
                         }
-                    }
-                    Console.WriteLine("Dealers hand");
-                    foreach (var card in Dealer.Hand)
-                    {
-                        design.Design(card);
-                    }
-                    Console.WriteLine("Your card");
-                    foreach (var card in player.Hand)
-                    {
-                        design.Design(card);
+                        player.Isturn = false;
                     }
                 }
 
@@ -122,8 +114,8 @@ namespace BlackJack_TDD.BlackJack
                 {
                     Console.WriteLine(player.Tutoring.Cheat());
                 }
-                player.Turn(input.GetInput("what is your next move?"));
-
+                var numberOfOPtions = player.Hand.Count == 2 && player.Splithand.Count == 0 ? 4 : 2;
+                player.Turn(input.GetOption(player));
                 Console.Clear();
             }
         }
@@ -137,8 +129,7 @@ namespace BlackJack_TDD.BlackJack
                 {
                     Console.WriteLine(player.Tutoring.Cheat());
                 }
-                player.Turn(input.GetInput("what is your next move?"));
-
+                player.Turn(input.GetOption(player));
                 Console.Clear();
             }
         }
