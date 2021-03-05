@@ -44,6 +44,21 @@ namespace BlackJack_TDD
         /// </summary>
         public bool Isturn { get; set; }
 
+
+        public FinishStatusEnum FinishStatusHand = FinishStatusEnum.Bust;
+        public FinishStatusEnum FinishStatusSplit = FinishStatusEnum.Bust;
+        /// <summary>
+        /// StateOfWin
+        /// </summary>
+        public enum FinishStatusEnum
+        {
+            Blackjack,
+            Win,
+            Push,
+            Bust,
+            Lost,
+        }
+
         //the card deck from core
         private CardsHandler cardDeck;
 
@@ -160,7 +175,7 @@ namespace BlackJack_TDD
             var tempValue = 0;
             var TempAce = new List<Card>();
 
-            foreach (var card in !SplithandIsplaying ? Hand : Splithand)
+            foreach (var card in Hand)
             {
                 if (card.Value == Card.CardValue.Ace)
                 {
@@ -179,14 +194,32 @@ namespace BlackJack_TDD
             {
                 IsPlaying = false;
             }
+            HandValue = tempValue;
+            if (Splithand.Count > 0)
+            {
+                tempValue = 0;
+                TempAce = new List<Card>();
 
-            if (SplithandIsplaying)
-            {
+                foreach (var card in Splithand)
+                {
+                    if (card.Value == Card.CardValue.Ace)
+                    {
+                        TempAce.Add(card);
+                    }
+                    else
+                    {
+                        tempValue += card.Score;
+                    }
+                }
+                if (TempAce.Count > 0)
+                {
+                    tempValue = tempValue + (10 + TempAce.Count) <= 21 ? tempValue + (10 + TempAce.Count) : tempValue + TempAce.Count;
+                }
+                if (tempValue >= 21)
+                {
+                    IsPlaying = false;
+                }
                 SplitHandValue = tempValue;
-            }
-            else
-            {
-                HandValue = tempValue;
             }
         }
 

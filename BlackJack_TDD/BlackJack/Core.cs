@@ -74,8 +74,8 @@ namespace BlackJack_TDD.BlackJack
                 //EndPhase
                 Tutoring.RemoveOneCard(Dealer.Hand[1]);
                 Dealer.Turn();
-
                 Calculatewin();
+                DrawTable.DrawScoreTable();
             }
         }
 
@@ -145,43 +145,52 @@ namespace BlackJack_TDD.BlackJack
                 {
                     if (player.HandValue == 21)
                     {
-                        Console.WriteLine("blackjack");
+                        player.FinishStatusHand = Player.FinishStatusEnum.Blackjack;
                         player.Saldo += player.Bet + (player.Bet * 1.5);
                     }
                     else if ((player.HandValue < 21 && player.HandValue > Dealer.HandValue) || (player.HandValue < 21 && Dealer.HandValue > 21))
                     {
-                        Console.WriteLine("won");
+                        player.FinishStatusHand = Player.FinishStatusEnum.Win;
                         player.Saldo += player.Bet * 2;
                     }
                     else if (player.HandValue < 21 && player.HandValue == Dealer.HandValue)
                     {
-                        Console.WriteLine("Push");
+                        player.FinishStatusHand = Player.FinishStatusEnum.Push;
                         player.Saldo += player.Bet;
+                    }
+                    else if (player.HandValue > 21)
+                    {
+                        player.FinishStatusHand = Player.FinishStatusEnum.Bust;
                     }
                     else
                     {
-                        Console.WriteLine("you lost");
+                        player.FinishStatusHand = Player.FinishStatusEnum.Lost;
                     }
+
                     if (player.Splithand.Count > 0)
                     {
                         if (player.SplitHandValue == 21)
                         {
-                            Console.WriteLine("blackjack");
+                            player.FinishStatusSplit = Player.FinishStatusEnum.Blackjack;
                             player.Saldo += player.Bet + (player.Bet * 1.5);
                         }
                         else if ((player.SplitHandValue < 21 && player.SplitHandValue > Dealer.HandValue) || (player.HandValue < 21 && Dealer.HandValue > 21))
                         {
-                            Console.WriteLine("won");
+                            player.FinishStatusSplit = Player.FinishStatusEnum.Win;
                             player.Saldo += player.Bet * 2;
                         }
                         else if (player.SplitHandValue < 21 && player.SplitHandValue == Dealer.HandValue)
                         {
-                            Console.WriteLine("Push");
+                            player.FinishStatusSplit = Player.FinishStatusEnum.Push;
                             player.Saldo += player.Bet;
+                        }
+                        else if (player.SplitHandValue > 21)
+                        {
+                            player.FinishStatusSplit = Player.FinishStatusEnum.Bust;
                         }
                         else
                         {
-                            Console.WriteLine("you lost");
+                            player.FinishStatusSplit = Player.FinishStatusEnum.Lost;
                         }
                     }
                 }
