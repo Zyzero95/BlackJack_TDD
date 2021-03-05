@@ -76,6 +76,15 @@ namespace BlackJack_TDD
                 }
                 cardDeck.Push(arrayOfCards[j]);
             }
+            cardDeck.Push(new Card { Suit = CardSuit.Clubs, Value = CardValue.Ace });
+            cardDeck.Push(new Card { Suit = CardSuit.Clubs, Value = CardValue.Ace });
+            cardDeck.Push(new Card { Suit = CardSuit.Clubs, Value = CardValue.Ace });
+            cardDeck.Push(new Card { Suit = CardSuit.Clubs, Value = CardValue.Ace });
+            cardDeck.Push(new Card { Suit = CardSuit.Clubs, Value = CardValue.Ace });
+            cardDeck.Push(new Card { Suit = CardSuit.Clubs, Value = CardValue.Ace });
+            cardDeck.Push(new Card { Suit = CardSuit.Clubs, Value = CardValue.Ace });
+            cardDeck.Push(new Card { Suit = CardSuit.Clubs, Value = CardValue.Ace });
+            cardDeck.Push(new Card { Suit = CardSuit.Clubs, Value = CardValue.Ace });
         }
     }
 }
