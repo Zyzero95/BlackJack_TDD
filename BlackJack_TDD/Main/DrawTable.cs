@@ -2,10 +2,8 @@
 {
     using BlackJack_TDD.BlackJack;
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
-    class DrawTable
+    internal class DrawTable
     {
         public static void DrawGameTabel()
         {
@@ -21,7 +19,7 @@
             Console.SetCursorPosition((Console.WindowWidth / 2) - 8, 9); Console.Write("└─────┘");
 
             Console.SetCursorPosition((Console.WindowWidth / 2) + 1, 5); Console.Write("┌─────┐");
-            Console.SetCursorPosition((Console.WindowWidth / 2) + 1, 6); Console.Write("│{0}│", Core.Dealer.Hand[0] .Value.ToString().PadLeft(5));
+            Console.SetCursorPosition((Console.WindowWidth / 2) + 1, 6); Console.Write("│{0}│", Core.Dealer.Hand[0].Value.ToString().PadLeft(5));
             Console.SetCursorPosition((Console.WindowWidth / 2) + 1, 7); Console.Write("│     │");
             Console.SetCursorPosition((Console.WindowWidth / 2) + 1, 8); Console.Write("│{0}│", Core.Dealer.Hand[0].Value.ToString().PadLeft(5));
             Console.SetCursorPosition((Console.WindowWidth / 2) + 1, 9); Console.Write("└─────┘");
@@ -32,14 +30,14 @@
                 var XShift = 0;
                 if (Core.Players[i].Splithand.Count > 0)
                 {
+                    XShift = -5;
                     foreach (var card in Core.Players[i].Hand)
                     {
-                        DrawCard(i, YShift,-5, card);
+                        DrawCard(i, YShift, XShift, card);
                         YShift += 5;
                     }
                     if (Core.Players[i].Isturn && !Core.Players[i].SplithandIsplaying)
                     {
-
                         Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) + -5, Console.WindowHeight - YShift - 2); Console.WriteLine("|");
                         Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) + -5, Console.WindowHeight - YShift - 1); Console.WriteLine("|");
                         Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) + -5, Console.WindowHeight - YShift); Console.WriteLine("v");
@@ -47,16 +45,15 @@
                     YShift = 5;
                     foreach (var card in Core.Players[i].Splithand)
                     {
-                        DrawCard(i, YShift, 5, card);
+                        DrawCard(i, YShift, XShift + 10, card);
                         YShift += 5;
                     }
                     YShift += 2;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) - 3 -5, Console.WindowHeight - 2); Console.Write($"Total {Core.Players[i].HandValue}");
+                    Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) - 3 - 5, Console.WindowHeight - 2); Console.Write($"Total {Core.Players[i].HandValue}");
                     Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) - 3 + 5, Console.WindowHeight - 2); Console.Write($"Total {Core.Players[i].SplitHandValue}");
                     if (Core.Players[i].Isturn && Core.Players[i].SplithandIsplaying)
                     {
-
                         Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) + 5, Console.WindowHeight - YShift - 5); Console.WriteLine("|");
                         Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) + 5, Console.WindowHeight - YShift - 4); Console.WriteLine("|");
                         Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) + 5, Console.WindowHeight - YShift - 3); Console.WriteLine("v");
@@ -77,10 +74,10 @@
                         Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) + XShift, Console.WindowHeight - YShift - 4); Console.WriteLine("|");
                         Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) + XShift, Console.WindowHeight - YShift - 3); Console.WriteLine("v");
                     }
-                     Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) - 3, Console.WindowHeight - 2); Console.Write($"Total {Core.Players[i].HandValue}");
+                    Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) - 3, Console.WindowHeight - 2); Console.Write($"Total {Core.Players[i].HandValue}");
                 }
 
-                Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) + XShift -3 , Console.WindowHeight - YShift); Console.WriteLine($"Player {i+1}");
+                Console.SetCursorPosition(Console.WindowWidth / 8 * (i + 1) + XShift - 3, Console.WindowHeight - YShift); Console.WriteLine($"Player {i + 1}");
             }
             Console.SetCursorPosition(0, 0);
         }
@@ -104,7 +101,7 @@
             {
                 var stinrgOutput = i == 0 ? "hit" : i == 1 ? "stand" : i == 2 ? "double" : i == 3 ? "split" : "Error";
                 Console.SetCursorPosition((Console.WindowWidth / 2) + xShit, 15); Console.Write("┌─────────────┐");
-                Console.SetCursorPosition((Console.WindowWidth / 2) + xShit, 16); Console.Write("│{0}│", PadBoth(stinrgOutput,13));
+                Console.SetCursorPosition((Console.WindowWidth / 2) + xShit, 16); Console.Write("│{0}│", PadBoth(stinrgOutput, 13));
                 Console.SetCursorPosition((Console.WindowWidth / 2) + xShit, 17); Console.Write("└─────────────┘");
                 if (ActiveOption == i)
                 {
@@ -119,19 +116,19 @@
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition((Console.WindowWidth / 2)-3, 2); Console.Write("Dealer");
-            Console.SetCursorPosition((Console.WindowWidth / 2) -5, 3); Console.Write($"Total: {Core.Dealer.HandValue.ToString()}");
+            Console.SetCursorPosition((Console.WindowWidth / 2) - 3, 2); Console.Write("Dealer");
+            Console.SetCursorPosition((Console.WindowWidth / 2) - 5, 3); Console.Write($"Total: {Core.Dealer.HandValue.ToString()}");
             var xShift = 0;
             var cardCount = Core.Dealer.Hand.Count;
             xShift = -((Core.Dealer.Hand.Count * 7) / 2);
             Console.ForegroundColor = ConsoleColor.Yellow;
             foreach (var card in Core.Dealer.Hand)
             {
-                Console.SetCursorPosition((Console.WindowWidth / 2) +xShift, 5); Console.Write("┌─────┐");
-                Console.SetCursorPosition((Console.WindowWidth / 2) +xShift, 6); Console.Write("│{0}│", card.Value.ToString().PadRight(5));
-                Console.SetCursorPosition((Console.WindowWidth / 2) +xShift, 7); Console.Write("│     │");
-                Console.SetCursorPosition((Console.WindowWidth / 2) +xShift, 8); Console.Write("│{0}│", card.Value.ToString().PadLeft(5));
-                Console.SetCursorPosition((Console.WindowWidth / 2) +xShift, 9); Console.Write("└─────┘");
+                Console.SetCursorPosition((Console.WindowWidth / 2) + xShift, 5); Console.Write("┌─────┐");
+                Console.SetCursorPosition((Console.WindowWidth / 2) + xShift, 6); Console.Write("│{0}│", card.Value.ToString().PadRight(5));
+                Console.SetCursorPosition((Console.WindowWidth / 2) + xShift, 7); Console.Write("│     │");
+                Console.SetCursorPosition((Console.WindowWidth / 2) + xShift, 8); Console.Write("│{0}│", card.Value.ToString().PadLeft(5));
+                Console.SetCursorPosition((Console.WindowWidth / 2) + xShift, 9); Console.Write("└─────┘");
                 xShift += 7;
             }
             for (int i = 0; i < Core.Players.Count; i++)

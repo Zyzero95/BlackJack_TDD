@@ -21,6 +21,7 @@ namespace BlackJack_TDD
                 }
             }
         }
+
         /// <summary>
         /// if it is true help or not
         /// </summary>
@@ -80,7 +81,6 @@ namespace BlackJack_TDD
             var probabilityDealer = CalculatePobabilitiy((int)Core.Dealer.Hand[0].Value);
             var probabilityPlayer = CalculatePobabilitiy(player.HandValue);
 
-
             if (probabilityPlayer.OverTwentyone > 0.70)
             {
                 return helpterSwitch ? "You should stand" : "You should hit";
@@ -89,7 +89,7 @@ namespace BlackJack_TDD
             {
                 return helpterSwitch ? "You should hit" : "You should stand";
             }
-            else if(probabilityDealer.OverTwentyone > 0.80)
+            else if (probabilityDealer.OverTwentyone > 0.80)
             {
                 return helpterSwitch ? "You should stand" : "You should hit";
             }
@@ -97,18 +97,18 @@ namespace BlackJack_TDD
             {
                 return helpterSwitch ? "You should stand" : "You should hit";
             }
-            else if((player.HandValue == 16 || player.HandValue == 17 || player.HandValue == 18 || player.HandValue == 19) && (probabilityPlayer.Twenty + probabilityPlayer.Twentyone) > (probabilityDealer.Twenty + probabilityDealer.Twentyone))
+            else if ((player.HandValue == 16 || player.HandValue == 17 || player.HandValue == 18 || player.HandValue == 19) && (probabilityPlayer.Twenty + probabilityPlayer.Twentyone) > (probabilityDealer.Twenty + probabilityDealer.Twentyone))
             {
                 return helpterSwitch ? "You should hit" : "You should stand";
             }
-            else if(player.HandValue == 18 && (probabilityDealer.OverTwentyone + probabilityDealer.Seventeen) > (probabilityDealer.Ninteen + probabilityDealer.Twenty + probabilityDealer.OverTwentyone))
+            else if (player.HandValue == 18 && (probabilityDealer.OverTwentyone + probabilityDealer.Seventeen) > (probabilityDealer.Ninteen + probabilityDealer.Twenty + probabilityDealer.OverTwentyone))
             {
                 return helpterSwitch ? "You should stand" : "You should hit";
             }
             else if (player.HandValue == 18 && (probabilityDealer.OverTwentyone + probabilityDealer.Seventeen) < (probabilityDealer.Ninteen + probabilityDealer.Twenty + probabilityDealer.OverTwentyone))
             {
                 return helpterSwitch ? "You should hit" : "You should stand";
-            }          
+            }
             else if (player.HandValue == 19 && (probabilityDealer.OverTwentyone + probabilityDealer.Seventeen + probabilityDealer.Eighteen) > (probabilityDealer.Twenty + probabilityDealer.OverTwentyone))
             {
                 return helpterSwitch ? "You should stand" : "You should hit";
@@ -117,7 +117,8 @@ namespace BlackJack_TDD
             {
                 return helpterSwitch ? "You should hit" : "You should stand";
             }
-            else{
+            else
+            {
                 return "I tihnk you should hit but my data aint sure";
             }
         }

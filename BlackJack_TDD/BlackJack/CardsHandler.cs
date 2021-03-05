@@ -28,7 +28,6 @@ namespace BlackJack_TDD
                     {
                         if (value != CardValue.YellowCard)
                         {
-
                             var newCard = new Card
                             {
                                 Suit = suit,
@@ -71,7 +70,7 @@ namespace BlackJack_TDD
             }
             for (var j = 0; j < arrayOfCards.Length; j++)
             {
-                if(j == yellow)
+                if (j == yellow)
                 {
                     cardDeck.Push(new Card { Value = CardValue.YellowCard });
                 }

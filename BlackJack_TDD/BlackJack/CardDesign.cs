@@ -25,7 +25,7 @@ namespace BlackJack_TDD.BlackJack
             {
                 suit = "♠";
             }
-            if(card.isVisible == false)
+            if (card.isVisible == false)
             {
                 Console.WriteLine(@"┌─────┐");
                 Console.WriteLine(@"│Face │");
@@ -47,7 +47,7 @@ namespace BlackJack_TDD.BlackJack
 
         public void FlipCard(Card card)
         {
-            if(card.isVisible == false)
+            if (card.isVisible == false)
             {
                 card.isVisible = true;
             }

@@ -54,7 +54,7 @@ namespace BlackJack_TDD.BlackJack
                 Dealer.StartOfRound();
                 Tutoring.StartOfRound = true;
                 DrawTable.DrawGameTabel();
-                
+
                 //GamePhase
                 DrawTable.DrawGameTabel();
                 foreach (var player in Players)
@@ -99,7 +99,7 @@ namespace BlackJack_TDD.BlackJack
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="input"></param>
         /// <param name="player"></param>

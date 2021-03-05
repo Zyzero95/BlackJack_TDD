@@ -12,6 +12,7 @@ namespace BlackJack_TDD.Main
             }
             return Console.ReadLine();
         }
+
         public string GetOption(Player player)
         {
             var Activeoption = 0;
@@ -53,18 +54,21 @@ namespace BlackJack_TDD.Main
                             return "split";
                         }
                         break;
+
                     case ConsoleKey.LeftArrow:
                         if (Activeoption > 0)
                         {
                             Activeoption--;
                         }
                         break;
+
                     case ConsoleKey.RightArrow:
-                        if (Activeoption < numberOfOPtions-1)
+                        if (Activeoption < numberOfOPtions - 1)
                         {
                             Activeoption++;
                         }
                         break;
+
                     default:
                         break;
                 }

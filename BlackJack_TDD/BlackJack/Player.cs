@@ -44,9 +44,9 @@ namespace BlackJack_TDD
         /// </summary>
         public bool Isturn { get; set; }
 
-
         public FinishStatusEnum FinishStatusHand = FinishStatusEnum.Bust;
         public FinishStatusEnum FinishStatusSplit = FinishStatusEnum.Bust;
+
         /// <summary>
         /// StateOfWin
         /// </summary>
