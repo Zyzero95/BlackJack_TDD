@@ -10,6 +10,7 @@ namespace BlackJack_TDD.Tests
         public void SetBetLessThenMin()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             Assert.IsFalse(player.SetBet(10).Succses);
         }
@@ -18,6 +19,7 @@ namespace BlackJack_TDD.Tests
         public void SetBetLessMoreThenMax()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             Assert.IsFalse(player.SetBet(2698).Succses);
         }
@@ -26,6 +28,7 @@ namespace BlackJack_TDD.Tests
         public void SetBetinbetween()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             Assert.IsTrue(player.SetBet(100).Succses);
         }
@@ -34,6 +37,7 @@ namespace BlackJack_TDD.Tests
         public void SetBetskipTurn()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             Assert.IsTrue(player.SetBet(0).Succses);
             Assert.IsFalse(player.IsPlaying);
@@ -43,6 +47,7 @@ namespace BlackJack_TDD.Tests
         public void Nochoice()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             var result = player.Turn("ffdsfkfpiskf");
             Assert.AreEqual(false, result.Succses, null, result.Exception);
@@ -52,6 +57,7 @@ namespace BlackJack_TDD.Tests
         public void Hit()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             player.Hand.Add(deck.DrawCard());
             player.Hand.Add(deck.DrawCard());
@@ -63,6 +69,7 @@ namespace BlackJack_TDD.Tests
         public void Stand()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             player.Hand.Add(deck.DrawCard());
             player.Hand.Add(deck.DrawCard());
@@ -74,6 +81,7 @@ namespace BlackJack_TDD.Tests
         public void DoubleWithTooLittleOnSaldo()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck, 60);
             player.SetBet(50);
             player.Hand.Add(deck.DrawCard());
@@ -86,6 +94,7 @@ namespace BlackJack_TDD.Tests
         public void DoubleWithTooManyCards()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             player.SetBet(50);
             player.Hand.Add(deck.DrawCard());
@@ -99,6 +108,7 @@ namespace BlackJack_TDD.Tests
         public void Doublesuccsesfull()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var dealer = new Dealer(deck);
             var player = new Player(deck);
             Core.Players.Add(player);
@@ -114,6 +124,7 @@ namespace BlackJack_TDD.Tests
         public void SplittooLuitleSaldo()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             Core.Players.Add(player);
             player.Saldo = 60;
@@ -129,6 +140,7 @@ namespace BlackJack_TDD.Tests
         public void SplitDiffrentCards()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             Core.Players.Add(player);
             player.SetBet(50);
@@ -143,6 +155,7 @@ namespace BlackJack_TDD.Tests
         public void Splituccsesfull()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             Core.Players.Add(player);
             player.SetBet(50);

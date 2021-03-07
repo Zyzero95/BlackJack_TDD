@@ -11,6 +11,7 @@
         public void FiveAceAceKingTest()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var player = new Player(deck);
             player.Hand.Clear();
             player.Hand.Add(new Card { Suit = Card.CardSuit.Clubs, Value = Card.CardValue.Five });
