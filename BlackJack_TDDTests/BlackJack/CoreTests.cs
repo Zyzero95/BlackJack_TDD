@@ -9,6 +9,7 @@ namespace BlackJack_TDD.BlackJack.Tests
         public void CalculatewinblakcJackwin()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var dealer = new Dealer(deck);
             var player = new Player(deck);
             Core.Players.Add(player);
@@ -25,6 +26,7 @@ namespace BlackJack_TDD.BlackJack.Tests
         public void CalculatewinNormalWin()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var dealer = new Dealer(deck);
             var player = new Player(deck);
             Core.Players.Add(player);
@@ -41,6 +43,7 @@ namespace BlackJack_TDD.BlackJack.Tests
         public void CalculatewindealerBust()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var dealer = new Dealer(deck);
             var player = new Player(deck);
             Core.Players.Add(player);
@@ -57,6 +60,7 @@ namespace BlackJack_TDD.BlackJack.Tests
         public void CalculatewinBust()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var dealer = new Dealer(deck);
             var player = new Player(deck);
             Core.Players.Add(player);
@@ -73,6 +77,7 @@ namespace BlackJack_TDD.BlackJack.Tests
         public void CalculatewinLost()
         {
             var deck = new CardsHandler();
+            Core.CardDeck = deck;
             var dealer = new Dealer(deck);
             var player = new Player(deck);
             Core.Players.Add(player);
